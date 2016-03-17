@@ -1,8 +1,12 @@
 # 七牛直播demo项目iOS版本
 
+##运行之前，请下载当前文件并解压复制到项目中，播放才能进行
+[点击下载](http://7xng1t.com1.z0.glb.clouddn.com/deps.zip)
+
+
 ##打包APP下载
 
-[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.0.6.html)
+[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.0.7.html)
 
 ##官方直播文档
 
