@@ -7,9 +7,9 @@
 //
 
 #import "QNPiliUserVC.h"
-#import "QNPiliMicrophoneVC.h"
 #import "QNPiliChoseVC.h"
 #import "QNPiliUserListVC.h"
+#import "QNPiliPlayAddress.h"
 
 @interface QNPiliUserVC ()
 
@@ -41,10 +41,11 @@
     [self.navigationController pushViewController:choseVC animated:YES];
 }
 
-- (IBAction)audioAction:(id)sender
+
+- (IBAction)checkOutAddress:(id)sender
 {
-    QNPiliMicrophoneVC * microVC = [[QNPiliMicrophoneVC alloc] init];
-    [self.navigationController pushViewController:microVC animated:YES];
+    QNPiliPlayAddress * playAddress = [[QNPiliPlayAddress alloc] init];
+    [self.navigationController pushViewController:playAddress animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

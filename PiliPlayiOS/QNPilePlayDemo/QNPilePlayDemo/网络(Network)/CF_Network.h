@@ -9,7 +9,6 @@
 //typedef void(^Failure) (NSURLSessionDataTask *task, NSError *error);
 #import <Foundation/Foundation.h>
 #import "AFAppDotNetAPIClient.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "NSHTTPRequestManger.h"
 #include "Config.h"
 @interface CF_Network : NSObject

@@ -35,6 +35,7 @@
 
 /*--------------------ios7 的判断------------------------------------------------------*/
 #define IOS8_OR_LATER  [[[UIDevice currentDevice]systemVersion] floatValue] >= 8
+#define IOS9_OR_LATER [[[UIDevice currentDevice]systemVersion] floatValue] >= 9
 #define IOS5 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 5.0f && [[[UIDevice currentDevice] systemVersion] floatValue] < 6.0f)
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 #define IOS6_7_DELTA(V,X,Y,W,H) if(IOS7_OR_LATER) {CGRect f = V.frame;f.origin.x += X;f.origin.y += Y;f.size.width +=W;f.size.height += H;V.frame=f;}

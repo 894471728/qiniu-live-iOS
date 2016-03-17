@@ -10,7 +10,6 @@
 
 
 #import "CF_Network.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "SVProgressHUD.h"
 
 @implementation CF_Network

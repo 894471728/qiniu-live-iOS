@@ -14,7 +14,7 @@
 @interface QNPiliComeBackVC ()
 
 @property (nonatomic, strong) NSMutableArray * dataArray;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong)  UITableView *tableView;
 
 @end
 
@@ -22,13 +22,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view from its nib.
     self.dataArray = [[NSMutableArray alloc] init];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kDeviceWidth, KDeviceHeight-64-49)];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
     if ([UserInfoClass sheardUserInfo].isLogin) {
         [self setupRefresh];
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,6 +45,7 @@
  */
 - (void)setupRefresh
 {
+    
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
     //#warning 自动刷新(一进入程序就下拉刷新)

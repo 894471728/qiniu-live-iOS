@@ -10,7 +10,6 @@
 
 @interface QNPiliChoseVC : BaseVC
 
-@property (nonatomic, weak) IBOutlet UIButton * choseQuarlityBtn;
 @property (nonatomic, weak) IBOutlet UIButton * starBtn;
 @property (nonatomic, weak) IBOutlet UIButton * choseOrientationBtn;
 @property (nonatomic, weak) IBOutlet UITextField * vedioTitleTf;

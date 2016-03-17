@@ -54,7 +54,6 @@
 
 - (IBAction)playAction:(id)sender
 {
-    
     self.playBtn.hidden = YES;
     [self.player play];
 }

@@ -8,7 +8,6 @@
 
 #import "QNPiliPlayerVC.h"
 #import "QNPiliCameraVC.h"
-#import "QNPiliMicrophoneVC.h"
 #import "QNPiliPlayVC.h"
 #import "LoginVC.h"
 #import "MJRefresh.h"
@@ -87,7 +86,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.dataArray = [[NSMutableArray alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if ([UserInfoClass sheardUserInfo].isLogin) {

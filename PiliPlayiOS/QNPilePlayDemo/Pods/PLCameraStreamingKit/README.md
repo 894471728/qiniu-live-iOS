@@ -20,6 +20,7 @@ PLCameraStreamingKit 是一个适用于 iOS 的 RTMP 直播推流 SDK，可高�
 - [x] 音视频配置分离
 - [x] 推流时可变码率
 - [x] 提供发送 buffer
+- [x] 支持 Zoom 操作
 
 ## 内容摘要
 
@@ -85,14 +86,7 @@ pod update
 //      @"disabled": @(NO),
 //      @"profiles": @[@"480p", @"720p"],    // or empty Array []
 //      @"hosts": @{
-//              @"publish": @{
-//                      @"rtmp": @"rtmp_publish_host"
-//                      },
-//              @"play": @{
-//                      @"rtmp": @"rtmp_play_host",
-//                      @"hls": @"hls_play_host"
-//                      }
-//              }
+//            ...
 //      }
 NSDicationary *streamJSON;
 PLStream *stream = [PLStream streamWithJSON:streamJSON];
@@ -153,50 +147,30 @@ if (PLAuthorizationStatusNotDetermined == status) {
 
 移动端因网络环境不稳定及用户电量宝贵等原因，并不建议直接使用最高码率和分辨率来做推流，以最佳编码参数来做设置可以带来更好的推流效果和用户体验。
 
-你无需辛苦的一个个参数设置，```PLCameraStreamingKit``` 提供了一个编码配置的类来帮你快速完成配置。
+如果你不能确定该如何配置各个编码参数，也不用担心，```PLCameraStreamingKit``` 提供了一个编码配置的类来帮你快速完成配置，你可以通过使用 SDK 预先定义好的 quality 来构建编码推流配置。
 
 ### 视频编码参数
 
 ```Objective-C
-// 初始化编码配置类的实例需要的两个参数
-
-// 视频横纵比及分辨率
-typedef NS_ENUM(NSUInteger, PLStreamingDimension) {
-    PLStreamingDimension_16_9__416x234,
-    PLStreamingDimension_16_9__480x270,
-    PLStreamingDimension_16_9__640x360,
-    PLStreamingDimension_16_9__960x540,
-    PLStreamingDimension_16_9__1280x720,
-    PLStreamingDimension_16_9__1920x1080,
-    PLStreamingDimension_4_3__400x300,
-    PLStreamingDimension_4_3__480x360,
-    PLStreamingDimension_4_3__640x480,
-    PLStreamingDimension_4_3__960x720,
-    PLStreamingDimension_4_3__1280x960,
-    PLStreamingDimension_4_3__1920x1140,
-    PLStreamingDimension_UserDefine,
-    PLStreamingDimension_Default = PLStreamingDimension_4_3__640x480
-};
-
 // 视频推流质量
 /*!
  * @abstract Video streaming quality low 1
  *
- * @discussion 具体参数 fps: 12, profile level: baseline30, video bitrate: 150Kbps
+ * @discussion 具体参数 fps: 12, profile level: baseline31, video bitrate: 150Kbps
  */
 extern NSString *kPLVideoStreamingQualityLow1;
 
 /*!
  * @abstract Video streaming quality low 2
  *
- * @discussion 具体参数 fps: 15, profile level: baseline30, video bitrate: 264Kbps
+ * @discussion 具体参数 fps: 15, profile level: baseline31, video bitrate: 264Kbps
  */
 extern NSString *kPLVideoStreamingQualityLow2;
 
 /*!
  * @abstract Video streaming quality low 3
  *
- * @discussion 具体参数 fps: 15, profile level: baseline30, video bitrate: 350Kbps
+ * @discussion 具体参数 fps: 15, profile level: baseline31, video bitrate: 350Kbps
  */
 extern NSString *kPLVideoStreamingQualityLow3;
 
@@ -224,21 +198,21 @@ extern NSString *kPLVideoStreamingQualityMedium3;
 /*!
  * @abstract Video streaming quality high 1
  *
- * @discussion 具体参数 fps: 30, profile level: main30, video bitrate: 1200Kbps
+ * @discussion 具体参数 fps: 30, profile level: baseline31, video bitrate: 1200Kbps
  */
 extern NSString *kPLVideoStreamingQualityHigh1;
 
 /*!
  * @abstract Video streaming quality high 2
  *
- * @discussion 具体参数 fps: 30, profile level: main30, video bitrate: 1500Kbps
+ * @discussion 具体参数 fps: 30, profile level: baseline31, video bitrate: 1500Kbps
  */
 extern NSString *kPLVideoStreamingQualityHigh2;
 
 /*!
  * @abstract Video streaming quality high 3
  *
- * @discussion 具体参数 fps: 30, profile level: main30, video bitrate: 2000Kbps
+ * @discussion 具体参数 fps: 30, profile level: baseline31, video bitrate: 2000Kbps
  */
 extern NSString *kPLVideoStreamingQualityHigh3;
 ```
@@ -246,29 +220,29 @@ extern NSString *kPLVideoStreamingQualityHigh3;
 需要明确以上两者，便可以直接获取到最佳的视频编码配置。
 
 ```Objective-C
-// 默认情况下，PLCameraStreamingKit 会使用 4:3 的 640x480 分辨率，及 kPLVideoStreamingQualityMedium1 作为参数初始化编码配置类的实例.
+// 该方法每次都会生成一个新的配置，不是单例方法。默认情况下，对应的参数为分辨率 (320, 480), video quality PLStreamingQualityMedium1
 PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
 
-// 当然你也可以自己指定，比如你希望输出直播视频是 16:9 的 960x540 的分辨率，并且你已经明确你需要的视频质量为 High1，你可以这样来设置编码配置
-PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration configurationWithDimension:PLStreamingDimension_16_9__960x540 videoQuality:kPLVideoStreamingQualityHigh1];
+// 你也可以指定自己想要的分辨率和已有的 video quality 参数
+PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration configurationWithVideoSize:CGSizeMake(320, 480) videoQuality:kPLVideoStreamingQualityHigh1];
 
-// 当已有的分辨率无法满足你的需求时，你可以自己定义视频的大小
-PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration configurationWithUserDefineDimension:CGSizeMake(width, height) videoQuality:kPLVideoStreamingQualityHigh1];
+// 当已有的分辨率无法满足你的需求时，你可以自己定义所有参数，但请务必确保你清楚参数的含义
+PLVideoStreamingConfiguration *videoConfiguration = [[PLVideoStreamingConfiguration alloc] initWithVideoSize:CGSizeMake(width, height) videoFrameRate:30 videoMaxKeyframeInterval:90 videoBitrate:1200 * 1000 videoProfileLevel:AVVideoProfileLevelH264Main32]];
 ```
 
 ### Video Quality 具体参数
 
 | Quality | FPS | ProfileLevel | Video BitRate(Kbps)|
 |---|---|---|---|
-|kPLVideoStreamingQualityLow1|12|Baseline 30|150|
-|kPLVideoStreamingQualityLow2|15|Baseline 30|264|
-|kPLVideoStreamingQualityLow3|15|Baseline 30|350|
+|kPLVideoStreamingQualityLow1|12|Baseline 31|150|
+|kPLVideoStreamingQualityLow2|15|Baseline 31|264|
+|kPLVideoStreamingQualityLow3|15|Baseline 31|350|
 |kPLVideoStreamingQualityMedium1|30|Baseline 31|512|
 |kPLVideoStreamingQualityMedium2|30|Baseline 31|800|
 |kPLVideoStreamingQualityMedium3|30|Baseline 31|1000|
-|kPLVideoStreamingQualityHigh1|30|Main 30|1200|
-|kPLVideoStreamingQualityHigh2|30|Main 30|1500|
-|kPLVideoStreamingQualityHigh3|30|Main 30|2000|
+|kPLVideoStreamingQualityHigh1|30|Baseline 31|1200|
+|kPLVideoStreamingQualityHigh2|30|Baseline 31|1500|
+|kPLVideoStreamingQualityHigh3|30|Baseline 31|2000|
 
 ### 音频编码参数
 
@@ -316,14 +290,18 @@ PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfigurati
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session streamStateDidChange:(PLStreamState)state {
     // 当流状态变更为非 Error 时，会回调到这里
 }
-
 ```
 
 ```Objective-C
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error {
     // 当流状态变为 Error, 会携带 NSError 对象回调这个方法
 }
+```
 
+```Objective-C
+- (void)streamingSession:(PLStreamingSession *)session streamStatusDidUpdate:(PLStreamStatus *)status {
+    // 当开始推流时，会每间隔 3s 调用该回调方法来反馈该 3s 内的流状态，包括视频帧率、音频帧率、音视频总码率
+}
 ```
 
 ## 变更推流质量及策略
@@ -336,12 +314,8 @@ PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfigurati
 // BufferDelegate
 @protocol PLStreamingSendingBufferDelegate <NSObject>
 
-- (void)streamingSessionSendingBufferFillDidLowerThanLowThreshold:(id)session;
-- (void)streamingSessionSendingBufferFillDidHigherThanHighThreshold:(id)session;
 - (void)streamingSessionSendingBufferDidEmpty:(id)session;
 - (void)streamingSessionSendingBufferDidFull:(id)session;
-- (void)streamingSession:(id)session sendingBufferDidDropItems:(NSArray *)items;
-- (void)streamingSession:(id)session sendingBufferCurrentDurationDidChange:(NSTimeInterval)currentDuration;
 
 @end
 
@@ -350,21 +324,17 @@ PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfigurati
 
 @property (nonatomic, PL_WEAK) id<PLStreamingSendingBufferDelegate> bufferDelegate;
 
-/// 最低阈值, [0..1], 不可超出这个范围, 也不可大于 highThreshold - 0.1, 默认为 0.2
-@property (nonatomic, assign) CGFloat    lowThreshold;
+/// [0..1], 不可超出这个范围, 默认为 0.5
+@property (nonatomic, assign) CGFloat    threshold;
 
-/// 最高阈值, [0..1], 不可超出这个范围, 也不可小于 lowThreshold + 0.1, 默认为 0.8
-@property (nonatomic, assign) CGFloat    highThreshold;
-
-/// Buffer 的最大长度, 默认为 3s, 可设置范围为 [1..5]
-@property (nonatomic, assign) NSTimeInterval    maxDuration;
-
-@property (nonatomic, assign, readonly) NSTimeInterval    currentDuration;
+/// Buffer 最多可包含的包数，默认为 300
+@property (nonatomic, assign) NSUInteger    maxCount;
+@property (nonatomic, assign, readonly) NSUInteger    currentCount;
 
 @end
 ```
 
-buffer 是一个可以缓存待发送内容的队列，它按照时间(秒)作为缓存长度的判定，可以通过 maxDuration 来读取和设定，buffer 的下阈值和上阈值设定体现你期望的变更推流质量的策略，默认下阈值为 buffer 的 20%(0.2)，上阈值为 0.8。
+buffer 是一个可以缓存待发送内容的队列，它按照帧数作为缓存长度的判定，可以通过 maxCount 来读取和设定，buffer 的阈值设定体现你期望的变更推流质量的策略，默认阈值为 buffer 的 50%(0.5)。
 
 当 buffer 变为空时，会回调
 
@@ -374,34 +344,11 @@ buffer 是一个可以缓存待发送内容的队列，它按照时间(秒)作�
 
 `- (void)streamingSessionSendingBufferDidFull:(id)session;`
 
-如果 buffer 已经满了，但是还有数据传入时，会触发丢帧，会调用
-
-`- (void)streamingSession:(id)session sendingBufferDidDropItems:(NSArray *)items;`
-
-buffer 的内容高过上阈值时，会回调 
-
-`- (void)streamingSessionSendingBufferFillDidHigherThanHighThreshold:(id)session;`
-
-这是可以尝试降低 quality 的时机
-
-内容低于下阈值时，会回调 
-
-`- (void)streamingSessionSendingBufferFillDidLowerThanLowThreshold:(id)session;`
-
-这是可以尝试增加 quality 的时机。
-
-当了解了可以触发变更 quality 的时机，那么当你需要变更 quality 时，通过下面的方式来做调用 
+当你希望在 streamStatus 变化，buffer empty 或者 buffer full 时变化 video configuration，可以调用 session 的 reloadVideoConfiguration: 方法
 
 ```Objective-C
-[self.session beginUpdateConfiguration];
-self.session.videoConfiguration.videoQuality = kPLVideoStreamingQualityMedium2;
-self.session.audioConfiguration.audioQuality = kPLAudioStreamingQualityHigh1;
-[self.session endUpdateConfiguration];
+[self.session reloadVideoConfiguration:newConfiguraiton];
 ```
-
-### 重要事项
-
-**在不断流切换 Video Quality 时需要保证 profileLevel 基本不变，即 baseline 只可与 baseline 的 quality 相互切换。以现在的 quality 为例， low 和 medium 的 quality 可以互相切换，但是 high 的 quality 不可以与 low 及 medium 在不断流的情况下无缝切换，否则会导致播放器花屏。**
 
 ## 文档支持
 
@@ -416,6 +363,49 @@ PLCameraStreamingKit 使用 HeaderDoc 注释来做文档支持。
 
 ## 版本历史
 
+- 1.6.2 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.6.2.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.6.2.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.1.5`
+    - 支持 Zoom 操作
+- 1.6.1 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.6.1.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.6.1.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.1.3`
+    - 修复调用 `- (void)reloadVideoConfiguraiton` 方法，fps 变更失败的问题
+- 1.6.0 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.6.0.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.6.0.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.1.2`
+    - 添加 `PLStreamStatus` 回调，便于客户端监控推流状态
+    - 修复采集源 fps 变更失败的问题
+- 1.5.2 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.5.2.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.5.2.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.0.3`
+- 1.5.1 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.5.1.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.5.1.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.0.2`
+    - 更改音频数据源采集部分，转换为单声道
+- 1.5.0 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.5.0.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.5.0.md))
+    - 编码推流改为依赖 `PLStreamingKit`
+    - 去除 `PLAudioStreamingSession` 类, 建议单纯推音频的 App 直接接入 `PLStreamingKit`
+    - 摄像头及音频采集部分开源
+    - 底层添加了 HappyDNS, 解决部分地区 DNS 感染严重导致推流失败问题
+    - 优化 TCP 层发包，极大程度解决了网络正常但推流中经常断开的问题
+- 1.4.16 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.16.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.16.md))
+    - 解决 destroy 方法可能卡死线程的问题
+- 1.4.15 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.15.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.15.md))
+    - 修复类库 .a 未更新问题
+- 1.4.14 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.14.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.14.md))
+    - 解决视频质量切换时导致 crash 的问题
+    - 解决推流时触发的只有音频无视频问题
+    - 解决音频采样导致的电流声
+    - 解决潜在内存问题，整体提升稳定性
+    - 视频编码统一 profileLevel 为 baseline31
+    - 限定最高支持分辨率到 720p
+- 1.4.13 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.13.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.13.md))
+    - 更新 mute 行为，mute 后不会中断发包
+    - 更新音频设备采样率获取途径
+    - 更新底层库，避免冲突
+- 1.4.12 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.12.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.12.md))
+    - 添加 `smoothAutoFocusEnabled` 参数，确保拍摄时对焦的平滑过渡
+    - 修复无网络环境或其他情况触发断流时引起的 crash
+    - 修复频繁切换摄像头时引起的 crash
+    - 修复内存 leak
+- 1.4.11 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.11.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.11.md))
+    - 修复 iPhone 6s 系列机型直播无声音问题
 - 1.4.10 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.10.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.10.md))
     - 修复错误重连或者主动重连时导致 UI 卡顿的问题
 - 1.4.9 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.9.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.9.md))

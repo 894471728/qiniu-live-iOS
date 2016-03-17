@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QNPiliPlayAddress">
+            <connections>
+                <outlet property="AddressBtn" destination="KJb-1I-9p4" id="O3V-RQ-vdS"/>
+                <outlet property="addressData" destination="q0K-0F-HgP" id="Zsu-Rd-le6"/>
+                <outlet property="addressTitle" destination="sHG-7J-ChK" id="E0I-V0-d0g"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sHG-7J-ChK">
+                    <rect key="frame" x="50" y="84" width="500" height="29"/>
+                    <segments>
+                        <segment title="RTMP"/>
+                        <segment title="HLS"/>
+                        <segment title="FLV"/>
+                    </segments>
+                    <connections>
+                        <action selector="choseAction:" destination="-1" eventType="valueChanged" id="7nn-T5-JMn"/>
+                    </connections>
+                </segmentedControl>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0K-0F-HgP">
+                    <rect key="frame" x="20" y="162" width="560" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJb-1I-9p4">
+                    <rect key="frame" x="250" y="203" width="100" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="fNn-TQ-vwW"/>
+                        <constraint firstAttribute="width" constant="100" id="jAo-X3-SBg"/>
+                        <constraint firstAttribute="height" constant="50" id="quj-cZ-tbS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <state key="normal" title="复制">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="fNn-TQ-vwW"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="copyAction:" destination="-1" eventType="touchUpInside" id="b2k-49-FuP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="sHG-7J-ChK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="9QU-gh-ZcA"/>
+                <constraint firstAttribute="trailing" secondItem="KJb-1I-9p4" secondAttribute="trailing" constant="10" id="ByC-dz-X9P"/>
+                <constraint firstAttribute="trailing" secondItem="sHG-7J-ChK" secondAttribute="trailing" constant="50" id="Lbf-xH-VUH"/>
+                <constraint firstItem="KJb-1I-9p4" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="UuI-z6-EOH"/>
+                <constraint firstAttribute="trailing" secondItem="q0K-0F-HgP" secondAttribute="trailing" constant="20" id="YdF-73-2JY"/>
+                <constraint firstItem="q0K-0F-HgP" firstAttribute="top" secondItem="sHG-7J-ChK" secondAttribute="bottom" constant="50" id="dKg-gr-fKR"/>
+                <constraint firstItem="KJb-1I-9p4" firstAttribute="top" secondItem="q0K-0F-HgP" secondAttribute="bottom" constant="20" id="db4-SL-rrq"/>
+                <constraint firstItem="q0K-0F-HgP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="fSp-Da-jAY"/>
+                <constraint firstItem="KJb-1I-9p4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hkX-no-Z2D"/>
+                <constraint firstItem="sHG-7J-ChK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="y7H-l8-1mh"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ByC-dz-X9P"/>
+                    <exclude reference="UuI-z6-EOH"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="351" y="228"/>
+        </view>
+    </objects>
+</document>

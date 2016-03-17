@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AFAppDotNetAPIClient.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "NSHTTPRequestManger.h"
 typedef void(^Succeed) (NSURLSessionDataTask *task, id responseObject);
 typedef void(^Failure) (NSURLSessionDataTask *task, NSError *error);

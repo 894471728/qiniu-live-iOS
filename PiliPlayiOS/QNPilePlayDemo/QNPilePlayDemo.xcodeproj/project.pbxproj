@@ -7,55 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9310C1D81BF5F15400C1C8A4 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CE1BF5F15400C1C8A4 /* Icon-120.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1D91BF5F15400C1C8A4 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CF1BF5F15400C1C8A4 /* Icon-72.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DA1BF5F15400C1C8A4 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D01BF5F15400C1C8A4 /* Icon-72@2x.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DB1BF5F15400C1C8A4 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D11BF5F15400C1C8A4 /* Icon-Small-50.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DC1BF5F15400C1C8A4 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D21BF5F15400C1C8A4 /* Icon-Small-50@2x.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DD1BF5F15400C1C8A4 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D31BF5F15400C1C8A4 /* Icon-Small.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DE1BF5F15400C1C8A4 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D41BF5F15400C1C8A4 /* Icon-Small@2x.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1DF1BF5F15400C1C8A4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D51BF5F15400C1C8A4 /* Icon.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1E01BF5F15400C1C8A4 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D61BF5F15400C1C8A4 /* Icon@2x.png */; settings = {ASSET_TAGS = (); }; };
-		9310C1E11BF5F15400C1C8A4 /* pili.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D71BF5F15400C1C8A4 /* pili.png */; settings = {ASSET_TAGS = (); }; };
-		936B62C61BF1F01400126AA1 /* userHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C41BF1F01400126AA1 /* userHead@2x.png */; settings = {ASSET_TAGS = (); }; };
-		936B62C71BF1F01400126AA1 /* userHead@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C51BF1F01400126AA1 /* userHead@3x.png */; settings = {ASSET_TAGS = (); }; };
-		936D1FEF1BE7692500EAE34E /* PLTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D1FEE1BE7692500EAE34E /* PLTabbarVC.m */; settings = {ASSET_TAGS = (); }; };
-		936D1FF11BE76B7A00EAE34E /* VCList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 936D1FF01BE76B7A00EAE34E /* VCList.plist */; settings = {ASSET_TAGS = (); }; };
-		936D1FF51BE76EB700EAE34E /* QNPiliComeBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D1FF31BE76EB700EAE34E /* QNPiliComeBackVC.m */; settings = {ASSET_TAGS = (); }; };
-		936D1FF61BE76EB700EAE34E /* QNPiliComeBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936D1FF41BE76EB700EAE34E /* QNPiliComeBackVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93700CB81BE76756005356DD /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93700CB71BE76756005356DD /* BaseVC.m */; settings = {ASSET_TAGS = (); }; };
-		93753A911BF0EBB400DA0FBD /* Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 93753A901BF0EBB400DA0FBD /* Help.m */; settings = {ASSET_TAGS = (); }; };
-		937CC3951BE8B161009688B6 /* playLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3941BE8B161009688B6 /* playLogo.png */; settings = {ASSET_TAGS = (); }; };
-		937CC3971BE8B16A009688B6 /* stopLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3961BE8B16A009688B6 /* stopLogo.png */; settings = {ASSET_TAGS = (); }; };
-		938510FC1BF19753002F3BE9 /* QNPiliCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 938510FA1BF19753002F3BE9 /* QNPiliCell.m */; settings = {ASSET_TAGS = (); }; };
-		938510FD1BF19753002F3BE9 /* QNPiliCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938510FB1BF19753002F3BE9 /* QNPiliCell.xib */; settings = {ASSET_TAGS = (); }; };
-		938511011BF199F3002F3BE9 /* headlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 938511001BF199F3002F3BE9 /* headlogo.png */; settings = {ASSET_TAGS = (); }; };
-		938511051BF1CCAB002F3BE9 /* QNPiliChoseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 938511031BF1CCAB002F3BE9 /* QNPiliChoseVC.m */; settings = {ASSET_TAGS = (); }; };
-		938511061BF1CCAB002F3BE9 /* QNPiliChoseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938511041BF1CCAB002F3BE9 /* QNPiliChoseVC.xib */; settings = {ASSET_TAGS = (); }; };
-		9385110A1BF1D468002F3BE9 /* QNPiliUserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 938511081BF1D468002F3BE9 /* QNPiliUserVC.m */; settings = {ASSET_TAGS = (); }; };
-		9385110B1BF1D468002F3BE9 /* QNPiliUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938511091BF1D468002F3BE9 /* QNPiliUserVC.xib */; settings = {ASSET_TAGS = (); }; };
-		9385110D1BF1D503002F3BE9 /* headPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110C1BF1D503002F3BE9 /* headPic.png */; settings = {ASSET_TAGS = (); }; };
-		9385110F1BF1D7EB002F3BE9 /* btn_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110E1BF1D7EB002F3BE9 /* btn_down@2x.png */; settings = {ASSET_TAGS = (); }; };
-		938511111BF1D80F002F3BE9 /* btn_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938511101BF1D80F002F3BE9 /* btn_down@3x.png */; settings = {ASSET_TAGS = (); }; };
-		93962E161BF082DD009DEDC1 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93962E061BF082DD009DEDC1 /* MJRefresh.bundle */; settings = {ASSET_TAGS = (); }; };
-		93962E171BF082DD009DEDC1 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E091BF082DD009DEDC1 /* MJRefreshBaseView.m */; settings = {ASSET_TAGS = (); }; };
-		93962E181BF082DD009DEDC1 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0B1BF082DD009DEDC1 /* MJRefreshConst.m */; settings = {ASSET_TAGS = (); }; };
-		93962E191BF082DD009DEDC1 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0D1BF082DD009DEDC1 /* MJRefreshFooterView.m */; settings = {ASSET_TAGS = (); }; };
-		93962E1A1BF082DD009DEDC1 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0F1BF082DD009DEDC1 /* MJRefreshHeaderView.m */; settings = {ASSET_TAGS = (); }; };
-		93962E1B1BF082DD009DEDC1 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E111BF082DD009DEDC1 /* UIScrollView+MJExtension.m */; settings = {ASSET_TAGS = (); }; };
-		93962E1C1BF082DD009DEDC1 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E131BF082DD009DEDC1 /* UIScrollView+MJRefresh.m */; settings = {ASSET_TAGS = (); }; };
-		93962E1D1BF082DD009DEDC1 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E151BF082DD009DEDC1 /* UIView+MJExtension.m */; settings = {ASSET_TAGS = (); }; };
-		93CE79391BEC4D5800C2F901 /* clock_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79351BEC4D5800C2F901 /* clock_Back@2x.png */; settings = {ASSET_TAGS = (); }; };
-		93CE793A1BEC4D5800C2F901 /* clock_Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79361BEC4D5800C2F901 /* clock_Back@3x.png */; settings = {ASSET_TAGS = (); }; };
-		93CE793B1BEC4D5800C2F901 /* clock_now@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79371BEC4D5800C2F901 /* clock_now@2x.png */; settings = {ASSET_TAGS = (); }; };
-		93CE793C1BEC4D5800C2F901 /* clock_now@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79381BEC4D5800C2F901 /* clock_now@3x.png */; settings = {ASSET_TAGS = (); }; };
-		93CE79401BEC8AEA00C2F901 /* QNPiliPlayBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE793E1BEC8AEA00C2F901 /* QNPiliPlayBackVC.m */; settings = {ASSET_TAGS = (); }; };
-		93CE79411BEC8AEA00C2F901 /* QNPiliPlayBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CE793F1BEC8AEA00C2F901 /* QNPiliPlayBackVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93CEE0E21BE84DDD00958C42 /* QNPiliPlayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0E01BE84DDD00958C42 /* QNPiliPlayVC.m */; settings = {ASSET_TAGS = (); }; };
-		93CEE0E31BE84DDD00958C42 /* QNPiliPlayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CEE0E11BE84DDD00958C42 /* QNPiliPlayVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93CEE0E71BE851DC00958C42 /* QNPiliCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0E51BE851DC00958C42 /* QNPiliCameraVC.m */; settings = {ASSET_TAGS = (); }; };
-		93CEE0E81BE851DC00958C42 /* QNPiliCameraVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CEE0E61BE851DC00958C42 /* QNPiliCameraVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93CEE0EB1BE890F800958C42 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0EA1BE890F800958C42 /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
+		9310C1D81BF5F15400C1C8A4 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CE1BF5F15400C1C8A4 /* Icon-120.png */; };
+		9310C1D91BF5F15400C1C8A4 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CF1BF5F15400C1C8A4 /* Icon-72.png */; };
+		9310C1DA1BF5F15400C1C8A4 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D01BF5F15400C1C8A4 /* Icon-72@2x.png */; };
+		9310C1DB1BF5F15400C1C8A4 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D11BF5F15400C1C8A4 /* Icon-Small-50.png */; };
+		9310C1DC1BF5F15400C1C8A4 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D21BF5F15400C1C8A4 /* Icon-Small-50@2x.png */; };
+		9310C1DD1BF5F15400C1C8A4 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D31BF5F15400C1C8A4 /* Icon-Small.png */; };
+		9310C1DE1BF5F15400C1C8A4 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D41BF5F15400C1C8A4 /* Icon-Small@2x.png */; };
+		9310C1DF1BF5F15400C1C8A4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D51BF5F15400C1C8A4 /* Icon.png */; };
+		9310C1E01BF5F15400C1C8A4 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D61BF5F15400C1C8A4 /* Icon@2x.png */; };
+		9310C1E11BF5F15400C1C8A4 /* pili.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D71BF5F15400C1C8A4 /* pili.png */; };
+		936B62C61BF1F01400126AA1 /* userHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C41BF1F01400126AA1 /* userHead@2x.png */; };
+		936B62C71BF1F01400126AA1 /* userHead@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C51BF1F01400126AA1 /* userHead@3x.png */; };
+		936D1FEF1BE7692500EAE34E /* PLTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D1FEE1BE7692500EAE34E /* PLTabbarVC.m */; };
+		936D1FF11BE76B7A00EAE34E /* VCList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 936D1FF01BE76B7A00EAE34E /* VCList.plist */; };
+		936D1FF51BE76EB700EAE34E /* QNPiliComeBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D1FF31BE76EB700EAE34E /* QNPiliComeBackVC.m */; };
+		936D1FF61BE76EB700EAE34E /* QNPiliComeBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936D1FF41BE76EB700EAE34E /* QNPiliComeBackVC.xib */; };
+		93700CB81BE76756005356DD /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93700CB71BE76756005356DD /* BaseVC.m */; };
+		93753A911BF0EBB400DA0FBD /* Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 93753A901BF0EBB400DA0FBD /* Help.m */; };
+		937CC3951BE8B161009688B6 /* playLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3941BE8B161009688B6 /* playLogo.png */; };
+		937CC3971BE8B16A009688B6 /* stopLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3961BE8B16A009688B6 /* stopLogo.png */; };
+		938510FC1BF19753002F3BE9 /* QNPiliCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 938510FA1BF19753002F3BE9 /* QNPiliCell.m */; };
+		938510FD1BF19753002F3BE9 /* QNPiliCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938510FB1BF19753002F3BE9 /* QNPiliCell.xib */; };
+		938511011BF199F3002F3BE9 /* headlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 938511001BF199F3002F3BE9 /* headlogo.png */; };
+		938511051BF1CCAB002F3BE9 /* QNPiliChoseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 938511031BF1CCAB002F3BE9 /* QNPiliChoseVC.m */; };
+		938511061BF1CCAB002F3BE9 /* QNPiliChoseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938511041BF1CCAB002F3BE9 /* QNPiliChoseVC.xib */; };
+		9385110A1BF1D468002F3BE9 /* QNPiliUserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 938511081BF1D468002F3BE9 /* QNPiliUserVC.m */; };
+		9385110B1BF1D468002F3BE9 /* QNPiliUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938511091BF1D468002F3BE9 /* QNPiliUserVC.xib */; };
+		9385110D1BF1D503002F3BE9 /* headPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110C1BF1D503002F3BE9 /* headPic.png */; };
+		9385110F1BF1D7EB002F3BE9 /* btn_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110E1BF1D7EB002F3BE9 /* btn_down@2x.png */; };
+		938511111BF1D80F002F3BE9 /* btn_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938511101BF1D80F002F3BE9 /* btn_down@3x.png */; };
+		93962E161BF082DD009DEDC1 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93962E061BF082DD009DEDC1 /* MJRefresh.bundle */; };
+		93962E171BF082DD009DEDC1 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E091BF082DD009DEDC1 /* MJRefreshBaseView.m */; };
+		93962E181BF082DD009DEDC1 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0B1BF082DD009DEDC1 /* MJRefreshConst.m */; };
+		93962E191BF082DD009DEDC1 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0D1BF082DD009DEDC1 /* MJRefreshFooterView.m */; };
+		93962E1A1BF082DD009DEDC1 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0F1BF082DD009DEDC1 /* MJRefreshHeaderView.m */; };
+		93962E1B1BF082DD009DEDC1 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E111BF082DD009DEDC1 /* UIScrollView+MJExtension.m */; };
+		93962E1C1BF082DD009DEDC1 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E131BF082DD009DEDC1 /* UIScrollView+MJRefresh.m */; };
+		93962E1D1BF082DD009DEDC1 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E151BF082DD009DEDC1 /* UIView+MJExtension.m */; };
+		93CE79391BEC4D5800C2F901 /* clock_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79351BEC4D5800C2F901 /* clock_Back@2x.png */; };
+		93CE793A1BEC4D5800C2F901 /* clock_Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79361BEC4D5800C2F901 /* clock_Back@3x.png */; };
+		93CE793B1BEC4D5800C2F901 /* clock_now@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79371BEC4D5800C2F901 /* clock_now@2x.png */; };
+		93CE793C1BEC4D5800C2F901 /* clock_now@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93CE79381BEC4D5800C2F901 /* clock_now@3x.png */; };
+		93CE79401BEC8AEA00C2F901 /* QNPiliPlayBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE793E1BEC8AEA00C2F901 /* QNPiliPlayBackVC.m */; };
+		93CE79411BEC8AEA00C2F901 /* QNPiliPlayBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CE793F1BEC8AEA00C2F901 /* QNPiliPlayBackVC.xib */; };
+		93CE810F1C101DA1002DEE2A /* QNPiliPlayAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE810D1C101DA1002DEE2A /* QNPiliPlayAddress.m */; };
+		93CE81101C101DA1002DEE2A /* QNPiliPlayAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CE810E1C101DA1002DEE2A /* QNPiliPlayAddress.xib */; };
+		93CEE0E31BE84DDD00958C42 /* QNPiliPlayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CEE0E11BE84DDD00958C42 /* QNPiliPlayVC.xib */; };
+		93CEE0E71BE851DC00958C42 /* QNPiliCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0E51BE851DC00958C42 /* QNPiliCameraVC.m */; };
+		93CEE0E81BE851DC00958C42 /* QNPiliCameraVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CEE0E61BE851DC00958C42 /* QNPiliCameraVC.xib */; };
+		93CEE0EB1BE890F800958C42 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0EA1BE890F800958C42 /* Reachability.m */; };
 		93CEF4A21BDE1E8100750FE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEF4A11BDE1E8100750FE8 /* main.m */; };
 		93CEF4A51BDE1E8100750FE8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEF4A41BDE1E8100750FE8 /* AppDelegate.m */; };
 		93CEF4A81BDE1E8100750FE8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEF4A71BDE1E8100750FE8 /* ViewController.m */; };
@@ -64,27 +65,29 @@
 		93CEF4B01BDE1E8100750FE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93CEF4AE1BDE1E8100750FE8 /* LaunchScreen.storyboard */; };
 		93CEF4BB1BDE1E8100750FE8 /* QNPilePlayDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEF4BA1BDE1E8100750FE8 /* QNPilePlayDemoTests.m */; };
 		93CEF4C61BDE1E8100750FE8 /* QNPilePlayDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEF4C51BDE1E8100750FE8 /* QNPilePlayDemoUITests.m */; };
-		93CF54DD1BDF0FDC004CA713 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54D61BDF0FDC004CA713 /* AFAppDotNetAPIClient.m */; settings = {ASSET_TAGS = (); }; };
-		93CF54DE1BDF0FDC004CA713 /* CF_Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54D81BDF0FDC004CA713 /* CF_Network.m */; settings = {ASSET_TAGS = (); }; };
-		93CF54DF1BDF0FDC004CA713 /* HTTPRequestPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54DA1BDF0FDC004CA713 /* HTTPRequestPost.m */; settings = {ASSET_TAGS = (); }; };
-		93CF54E01BDF0FDC004CA713 /* NSHTTPRequestManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54DC1BDF0FDC004CA713 /* NSHTTPRequestManger.m */; settings = {ASSET_TAGS = (); }; };
-		93CF54FD1BDF0FEF004CA713 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93CF54E31BDF0FEF004CA713 /* LICENSE.txt */; settings = {ASSET_TAGS = (); }; };
-		93CF54FE1BDF0FEF004CA713 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54E41BDF0FEF004CA713 /* README.md */; settings = {ASSET_TAGS = (); }; };
-		93CF54FF1BDF0FEF004CA713 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54E71BDF0FEF004CA713 /* SVIndefiniteAnimatedView.m */; settings = {ASSET_TAGS = (); }; };
-		93CF55001BDF0FEF004CA713 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93CF54E81BDF0FEF004CA713 /* SVProgressHUD.bundle */; settings = {ASSET_TAGS = (); }; };
-		93CF55011BDF0FEF004CA713 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54EA1BDF0FEF004CA713 /* SVProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
-		93CF55101BDF1C5A004CA713 /* QNPiliPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF550E1BDF1C5A004CA713 /* QNPiliPlayerVC.m */; settings = {ASSET_TAGS = (); }; };
-		93CF55111BDF1C5A004CA713 /* QNPiliPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CF550F1BDF1C5A004CA713 /* QNPiliPlayerVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93D159FB1BF329AB00EBEDE3 /* QNPiliUserListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D159F91BF329AB00EBEDE3 /* QNPiliUserListVC.m */; settings = {ASSET_TAGS = (); }; };
-		93D159FC1BF329AB00EBEDE3 /* QNPiliUserListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D159FA1BF329AB00EBEDE3 /* QNPiliUserListVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93D2043C1BE99E1600733589 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D2043B1BE99E1600733589 /* microphone.png */; settings = {ASSET_TAGS = (); }; };
-		93D204401BE9B21800733589 /* QNPiliMicrophoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D2043E1BE9B21800733589 /* QNPiliMicrophoneVC.m */; settings = {ASSET_TAGS = (); }; };
-		93D204411BE9B21800733589 /* QNPiliMicrophoneVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D2043F1BE9B21800733589 /* QNPiliMicrophoneVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93F9A3631BE9FDA500DCD2AF /* UserInfoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3621BE9FDA500DCD2AF /* UserInfoClass.m */; settings = {ASSET_TAGS = (); }; };
-		93F9A3671BEA042F00DCD2AF /* RegistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3651BEA042F00DCD2AF /* RegistVC.m */; settings = {ASSET_TAGS = (); }; };
-		93F9A3681BEA042F00DCD2AF /* RegistVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A3661BEA042F00DCD2AF /* RegistVC.xib */; settings = {ASSET_TAGS = (); }; };
-		93F9A36C1BEA045200DCD2AF /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A36A1BEA045200DCD2AF /* LoginVC.m */; settings = {ASSET_TAGS = (); }; };
-		93F9A36D1BEA045200DCD2AF /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A36B1BEA045200DCD2AF /* LoginVC.xib */; settings = {ASSET_TAGS = (); }; };
+		93CF54DD1BDF0FDC004CA713 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54D61BDF0FDC004CA713 /* AFAppDotNetAPIClient.m */; };
+		93CF54DF1BDF0FDC004CA713 /* HTTPRequestPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54DA1BDF0FDC004CA713 /* HTTPRequestPost.m */; };
+		93CF54E01BDF0FDC004CA713 /* NSHTTPRequestManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54DC1BDF0FDC004CA713 /* NSHTTPRequestManger.m */; };
+		93CF54FD1BDF0FEF004CA713 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93CF54E31BDF0FEF004CA713 /* LICENSE.txt */; };
+		93CF54FE1BDF0FEF004CA713 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54E41BDF0FEF004CA713 /* README.md */; };
+		93CF54FF1BDF0FEF004CA713 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54E71BDF0FEF004CA713 /* SVIndefiniteAnimatedView.m */; };
+		93CF55001BDF0FEF004CA713 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93CF54E81BDF0FEF004CA713 /* SVProgressHUD.bundle */; };
+		93CF55011BDF0FEF004CA713 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF54EA1BDF0FEF004CA713 /* SVProgressHUD.m */; };
+		93CF55101BDF1C5A004CA713 /* QNPiliPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF550E1BDF1C5A004CA713 /* QNPiliPlayerVC.m */; };
+		93CF55111BDF1C5A004CA713 /* QNPiliPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CF550F1BDF1C5A004CA713 /* QNPiliPlayerVC.xib */; };
+		93CFA76E1C196609009C003E /* UIImage+Barrage.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CFA76D1C196609009C003E /* UIImage+Barrage.m */; };
+		93CFA7721C198C90009C003E /* NSSafeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CFA7711C198C90009C003E /* NSSafeObject.m */; };
+		93D108801C29253900B81957 /* QNPiliPlayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CEE0E01BE84DDD00958C42 /* QNPiliPlayVC.m */; };
+		93D159FB1BF329AB00EBEDE3 /* QNPiliUserListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D159F91BF329AB00EBEDE3 /* QNPiliUserListVC.m */; };
+		93D159FC1BF329AB00EBEDE3 /* QNPiliUserListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D159FA1BF329AB00EBEDE3 /* QNPiliUserListVC.xib */; };
+		93D2043C1BE99E1600733589 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D2043B1BE99E1600733589 /* microphone.png */; };
+		93D8A5091C990AE5008C030A /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */; };
+		93D8A50A1C990AE5008C030A /* PLPlayerKitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */; };
+		93F9A3631BE9FDA500DCD2AF /* UserInfoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3621BE9FDA500DCD2AF /* UserInfoClass.m */; };
+		93F9A3671BEA042F00DCD2AF /* RegistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3651BEA042F00DCD2AF /* RegistVC.m */; };
+		93F9A3681BEA042F00DCD2AF /* RegistVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A3661BEA042F00DCD2AF /* RegistVC.xib */; };
+		93F9A36C1BEA045200DCD2AF /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A36A1BEA045200DCD2AF /* LoginVC.m */; };
+		93F9A36D1BEA045200DCD2AF /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A36B1BEA045200DCD2AF /* LoginVC.xib */; };
 		A214FD5A7AD7D41C193D1825 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0BEE933B3C0EC9BBD5309B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +172,9 @@
 		93CE793D1BEC8AEA00C2F901 /* QNPiliPlayBackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliPlayBackVC.h; sourceTree = "<group>"; };
 		93CE793E1BEC8AEA00C2F901 /* QNPiliPlayBackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliPlayBackVC.m; sourceTree = "<group>"; };
 		93CE793F1BEC8AEA00C2F901 /* QNPiliPlayBackVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliPlayBackVC.xib; sourceTree = "<group>"; };
+		93CE810C1C101DA1002DEE2A /* QNPiliPlayAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliPlayAddress.h; sourceTree = "<group>"; };
+		93CE810D1C101DA1002DEE2A /* QNPiliPlayAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliPlayAddress.m; sourceTree = "<group>"; };
+		93CE810E1C101DA1002DEE2A /* QNPiliPlayAddress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliPlayAddress.xib; sourceTree = "<group>"; };
 		93CEE0DF1BE84DDD00958C42 /* QNPiliPlayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliPlayVC.h; sourceTree = "<group>"; };
 		93CEE0E01BE84DDD00958C42 /* QNPiliPlayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliPlayVC.m; sourceTree = "<group>"; };
 		93CEE0E11BE84DDD00958C42 /* QNPiliPlayVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliPlayVC.xib; sourceTree = "<group>"; };
@@ -199,8 +205,6 @@
 		93CF54D21BDF0E43004CA713 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		93CF54D51BDF0FDC004CA713 /* AFAppDotNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAppDotNetAPIClient.h; sourceTree = "<group>"; };
 		93CF54D61BDF0FDC004CA713 /* AFAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAppDotNetAPIClient.m; sourceTree = "<group>"; };
-		93CF54D71BDF0FDC004CA713 /* CF_Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CF_Network.h; sourceTree = "<group>"; };
-		93CF54D81BDF0FDC004CA713 /* CF_Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CF_Network.m; sourceTree = "<group>"; };
 		93CF54D91BDF0FDC004CA713 /* HTTPRequestPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestPost.h; sourceTree = "<group>"; };
 		93CF54DA1BDF0FDC004CA713 /* HTTPRequestPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequestPost.m; sourceTree = "<group>"; };
 		93CF54DB1BDF0FDC004CA713 /* NSHTTPRequestManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPRequestManger.h; sourceTree = "<group>"; };
@@ -215,14 +219,17 @@
 		93CF550D1BDF1C5A004CA713 /* QNPiliPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliPlayerVC.h; sourceTree = "<group>"; };
 		93CF550E1BDF1C5A004CA713 /* QNPiliPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliPlayerVC.m; sourceTree = "<group>"; };
 		93CF550F1BDF1C5A004CA713 /* QNPiliPlayerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliPlayerVC.xib; sourceTree = "<group>"; };
+		93CFA76C1C196609009C003E /* UIImage+Barrage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Barrage.h"; sourceTree = "<group>"; };
+		93CFA76D1C196609009C003E /* UIImage+Barrage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Barrage.m"; sourceTree = "<group>"; };
+		93CFA7701C198C90009C003E /* NSSafeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSafeObject.h; sourceTree = "<group>"; };
+		93CFA7711C198C90009C003E /* NSSafeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSafeObject.m; sourceTree = "<group>"; };
 		93D159F01BF2F23200EBEDE3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		93D159F81BF329AB00EBEDE3 /* QNPiliUserListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliUserListVC.h; sourceTree = "<group>"; };
 		93D159F91BF329AB00EBEDE3 /* QNPiliUserListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliUserListVC.m; sourceTree = "<group>"; };
 		93D159FA1BF329AB00EBEDE3 /* QNPiliUserListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliUserListVC.xib; sourceTree = "<group>"; };
 		93D2043B1BE99E1600733589 /* microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphone.png; sourceTree = "<group>"; };
-		93D2043D1BE9B21800733589 /* QNPiliMicrophoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliMicrophoneVC.h; sourceTree = "<group>"; };
-		93D2043E1BE9B21800733589 /* QNPiliMicrophoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliMicrophoneVC.m; sourceTree = "<group>"; };
-		93D2043F1BE9B21800733589 /* QNPiliMicrophoneVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliMicrophoneVC.xib; sourceTree = "<group>"; };
+		93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PLPlayerKitFramework.framework; sourceTree = "<group>"; };
 		93F9A3611BE9FDA500DCD2AF /* UserInfoClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoClass.h; sourceTree = "<group>"; };
 		93F9A3621BE9FDA500DCD2AF /* UserInfoClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoClass.m; sourceTree = "<group>"; };
 		93F9A3641BEA042F00DCD2AF /* RegistVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistVC.h; sourceTree = "<group>"; };
@@ -240,6 +247,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A214FD5A7AD7D41C193D1825 /* libPods.a in Frameworks */,
+				93D8A5091C990AE5008C030A /* IJKMediaFramework.framework in Frameworks */,
+				93D8A50A1C990AE5008C030A /* PLPlayerKitFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,9 +402,9 @@
 				93CEE0E41BE851DC00958C42 /* QNPiliCameraVC.h */,
 				93CEE0E51BE851DC00958C42 /* QNPiliCameraVC.m */,
 				93CEE0E61BE851DC00958C42 /* QNPiliCameraVC.xib */,
-				93D2043D1BE9B21800733589 /* QNPiliMicrophoneVC.h */,
-				93D2043E1BE9B21800733589 /* QNPiliMicrophoneVC.m */,
-				93D2043F1BE9B21800733589 /* QNPiliMicrophoneVC.xib */,
+				93CE810C1C101DA1002DEE2A /* QNPiliPlayAddress.h */,
+				93CE810D1C101DA1002DEE2A /* QNPiliPlayAddress.m */,
+				93CE810E1C101DA1002DEE2A /* QNPiliPlayAddress.xib */,
 				93753A8E1BF0EB7000DA0FBD /* Tools */,
 				93CF54E11BDF0FEF004CA713 /* Thired */,
 				93CF54D41BDF0FDC004CA713 /* 网络(Network) */,
@@ -453,8 +462,6 @@
 			children = (
 				93CF54D51BDF0FDC004CA713 /* AFAppDotNetAPIClient.h */,
 				93CF54D61BDF0FDC004CA713 /* AFAppDotNetAPIClient.m */,
-				93CF54D71BDF0FDC004CA713 /* CF_Network.h */,
-				93CF54D81BDF0FDC004CA713 /* CF_Network.m */,
 				93CF54D91BDF0FDC004CA713 /* HTTPRequestPost.h */,
 				93CF54DA1BDF0FDC004CA713 /* HTTPRequestPost.m */,
 				93CF54DB1BDF0FDC004CA713 /* NSHTTPRequestManger.h */,
@@ -466,8 +473,12 @@
 		93CF54E11BDF0FEF004CA713 /* Thired */ = {
 			isa = PBXGroup;
 			children = (
+				93D8A5061C990AE5008C030A /* deps */,
+				93CFA76C1C196609009C003E /* UIImage+Barrage.h */,
+				93CFA76D1C196609009C003E /* UIImage+Barrage.m */,
 				93CEE0E91BE890F800958C42 /* Reachability.h */,
 				93CEE0EA1BE890F800958C42 /* Reachability.m */,
+				93CFA76F1C198C90009C003E /* SafeObject */,
 				93962E051BF082DD009DEDC1 /* MJRefresh */,
 				93CF54E21BDF0FEF004CA713 /* SVProgressHUD */,
 			);
@@ -496,6 +507,15 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
+		93CFA76F1C198C90009C003E /* SafeObject */ = {
+			isa = PBXGroup;
+			children = (
+				93CFA7701C198C90009C003E /* NSSafeObject.h */,
+				93CFA7711C198C90009C003E /* NSSafeObject.m */,
+			);
+			path = SafeObject;
+			sourceTree = "<group>";
+		};
 		93D204421BE9FB8B00733589 /* userInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +529,15 @@
 				93F9A36B1BEA045200DCD2AF /* LoginVC.xib */,
 			);
 			path = userInfo;
+			sourceTree = "<group>";
+		};
+		93D8A5061C990AE5008C030A /* deps */ = {
+			isa = PBXGroup;
+			children = (
+				93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */,
+				93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */,
+			);
+			path = deps;
 			sourceTree = "<group>";
 		};
 		A3769A4FE16E34889D964FA3 /* Pods */ = {
@@ -590,7 +619,7 @@
 				TargetAttributes = {
 					93CEF49C1BDE1E8100750FE8 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = W2TP34G2MM;
+						DevelopmentTeam = GDFHW66V92;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -632,13 +661,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CE81101C101DA1002DEE2A /* QNPiliPlayAddress.xib in Resources */,
 				93CE793A1BEC4D5800C2F901 /* clock_Back@3x.png in Resources */,
 				9310C1D81BF5F15400C1C8A4 /* Icon-120.png in Resources */,
 				936D1FF61BE76EB700EAE34E /* QNPiliComeBackVC.xib in Resources */,
 				93D2043C1BE99E1600733589 /* microphone.png in Resources */,
 				93CE79391BEC4D5800C2F901 /* clock_Back@2x.png in Resources */,
 				93CF55001BDF0FEF004CA713 /* SVProgressHUD.bundle in Resources */,
-				93D204411BE9B21800733589 /* QNPiliMicrophoneVC.xib in Resources */,
 				9310C1DA1BF5F15400C1C8A4 /* Icon-72@2x.png in Resources */,
 				936B62C61BF1F01400126AA1 /* userHead@2x.png in Resources */,
 				93CF54FD1BDF0FEF004CA713 /* LICENSE.txt in Resources */,
@@ -749,26 +778,27 @@
 				93753A911BF0EBB400DA0FBD /* Help.m in Sources */,
 				93962E1B1BF082DD009DEDC1 /* UIScrollView+MJExtension.m in Sources */,
 				938511051BF1CCAB002F3BE9 /* QNPiliChoseVC.m in Sources */,
-				93CF54DE1BDF0FDC004CA713 /* CF_Network.m in Sources */,
 				93D159FB1BF329AB00EBEDE3 /* QNPiliUserListVC.m in Sources */,
-				93CEE0E21BE84DDD00958C42 /* QNPiliPlayVC.m in Sources */,
 				93CF54DD1BDF0FDC004CA713 /* AFAppDotNetAPIClient.m in Sources */,
 				93962E1C1BF082DD009DEDC1 /* UIScrollView+MJRefresh.m in Sources */,
 				93CF55101BDF1C5A004CA713 /* QNPiliPlayerVC.m in Sources */,
+				93D108801C29253900B81957 /* QNPiliPlayVC.m in Sources */,
 				93F9A3631BE9FDA500DCD2AF /* UserInfoClass.m in Sources */,
 				93F9A36C1BEA045200DCD2AF /* LoginVC.m in Sources */,
 				93700CB81BE76756005356DD /* BaseVC.m in Sources */,
-				93D204401BE9B21800733589 /* QNPiliMicrophoneVC.m in Sources */,
 				93962E181BF082DD009DEDC1 /* MJRefreshConst.m in Sources */,
+				93CFA7721C198C90009C003E /* NSSafeObject.m in Sources */,
 				938510FC1BF19753002F3BE9 /* QNPiliCell.m in Sources */,
 				936D1FF51BE76EB700EAE34E /* QNPiliComeBackVC.m in Sources */,
 				93F9A3671BEA042F00DCD2AF /* RegistVC.m in Sources */,
 				9385110A1BF1D468002F3BE9 /* QNPiliUserVC.m in Sources */,
 				93CF54FF1BDF0FEF004CA713 /* SVIndefiniteAnimatedView.m in Sources */,
+				93CE810F1C101DA1002DEE2A /* QNPiliPlayAddress.m in Sources */,
 				936D1FEF1BE7692500EAE34E /* PLTabbarVC.m in Sources */,
 				93962E1D1BF082DD009DEDC1 /* UIView+MJExtension.m in Sources */,
 				93CF54E01BDF0FDC004CA713 /* NSHTTPRequestManger.m in Sources */,
 				93CEF4A81BDE1E8100750FE8 /* ViewController.m in Sources */,
+				93CFA76E1C196609009C003E /* UIImage+Barrage.m in Sources */,
 				93CEE0E71BE851DC00958C42 /* QNPiliCameraVC.m in Sources */,
 				93CF54DF1BDF0FDC004CA713 /* HTTPRequestPost.m in Sources */,
 				93CEF4A51BDE1E8100750FE8 /* AppDelegate.m in Sources */,
@@ -922,14 +952,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/QNPilePlayDemo/Thired/deps",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QNPilePlayDemo/QNPiliPlayDemo.pch";
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNTestDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";
 			};
 			name = Debug;
 		};
@@ -939,14 +974,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/QNPilePlayDemo/Thired/deps",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QNPilePlayDemo/QNPiliPlayDemo.pch";
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNTestDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";
 			};
 			name = Release;
 		};

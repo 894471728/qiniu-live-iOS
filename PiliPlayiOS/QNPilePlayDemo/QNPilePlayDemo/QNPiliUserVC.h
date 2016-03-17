@@ -14,4 +14,5 @@
 @property (nonatomic ,weak) IBOutlet UIButton * videoBtn;
 @property (nonatomic ,weak) IBOutlet UIButton * audioBtn;
 @property (nonatomic ,weak) IBOutlet UILabel * userName;
+@property (nonatomic ,weak) IBOutlet UIButton * checkOutAddressBtn;
 @end
