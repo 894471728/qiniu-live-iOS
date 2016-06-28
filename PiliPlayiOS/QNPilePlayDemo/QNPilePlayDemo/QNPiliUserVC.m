@@ -24,7 +24,7 @@
     
     self.videoListBtn.layer.cornerRadius = 10;
     
-    self.audioBtn.layer.cornerRadius = 10;
+    self.checkOutAddressBtn.layer.cornerRadius = 10;
     
     self.userName.text = [UserInfoClass sheardUserInfo].userName;
 }

@@ -35,35 +35,11 @@ const char *networkStatus[] = {
 #define kMinVideoFPSPercent 0.05
 #define kHigherQualityTimeInterval  10
 
-static NSArray *ConsoleLogs() {
-    NSMutableArray *consoleLog = [NSMutableArray array];
-    
-    aslclient client = asl_open(NULL, NULL, ASL_OPT_STDERR);
-    
-    aslmsg query = asl_new(ASL_TYPE_QUERY);
-    asl_set_query(query, ASL_KEY_MSG, NULL, ASL_QUERY_OP_NOT_EQUAL);
-    aslresponse response = asl_search(client, query);
-    
-    asl_free(query);
-    
-    aslmsg message;
-    while((message = asl_next(response)))
-    {
-        const char *msg = asl_get(message, ASL_KEY_MSG);
-        [consoleLog addObject:[NSString stringWithCString:msg encoding:NSUTF8StringEncoding]];
-    }
-    
-    asl_release(response);
-    asl_close(client);
-    
-    return consoleLog;
-}
+#define kBrightnessAdjustRatio  1.03
+#define kSaturationAdjustRatio  1.03
 
-static NSString *LogString() {
-    NSArray *logs = ConsoleLogs();
-    NSString *log = [logs componentsJoinedByString:@"\n"];
-    return log;
-}
+#define kDeviceWidth [UIScreen mainScreen].bounds.size.width        //屏幕宽
+#define KDeviceHeight [UIScreen mainScreen].bounds.size.height      //屏幕高
 
 @interface QNPiliCameraVC ()<
 PLCameraStreamingSessionDelegate,
@@ -77,8 +53,10 @@ PLStreamingSendingBufferDelegate
 @property (nonatomic, strong) PLCameraStreamingSession  *session;
 @property (nonatomic, strong) Reachability *internetReachability;
 @property (nonatomic, strong) dispatch_queue_t sessionQueue;
-@property (nonatomic, strong) NSArray   *videoConfigurations;
+@property (nonatomic, strong) NSArray<PLVideoCaptureConfiguration *>   *videoCaptureConfigurations;
+@property (nonatomic, strong) NSArray<PLVideoStreamingConfiguration *>   *videoStreamingConfigurations;
 @property (nonatomic, strong) NSDate    *keyTime;
+@property (nonatomic, strong) NSMutableArray *filterHandlers;
 @property (nonatomic, assign) BOOL isStart;
 
 
@@ -130,16 +108,21 @@ PLStreamingSendingBufferDelegate
     CGSize videoSize;
     if(self.orientationNum)
     {
-        videoSize = CGSizeMake(320, 480);
+        videoSize = CGSizeMake(kDeviceWidth, KDeviceHeight);
     }else
     {
-        videoSize = CGSizeMake(480, 320);
+        videoSize = CGSizeMake(KDeviceHeight, kDeviceWidth);
     }
-    self.videoConfigurations = @[
-                                 [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize videoFrameRate:15 videoMaxKeyframeInterval:45 videoBitrate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
-                                 [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize videoFrameRate:24 videoMaxKeyframeInterval:72 videoBitrate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
-                                 [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize videoFrameRate:30 videoMaxKeyframeInterval:90 videoBitrate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
-                                 ];
+    self.videoStreamingConfigurations = @[
+                                          [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize expectedSourceVideoFrameRate:15 videoMaxKeyframeInterval:45 averageVideoBitRate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
+                                          [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize expectedSourceVideoFrameRate:24 videoMaxKeyframeInterval:72 averageVideoBitRate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
+                                          [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize expectedSourceVideoFrameRate:30 videoMaxKeyframeInterval:90 averageVideoBitRate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
+                                          ];
+    self.videoCaptureConfigurations = @[
+                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:15 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront],
+                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:24 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront],
+                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:30 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront]
+                                        ];
     self.sessionQueue = dispatch_queue_create("pili.queue.streaming", DISPATCH_QUEUE_SERIAL);
     
     // 网络状态监控
@@ -147,46 +130,40 @@ PLStreamingSendingBufferDelegate
     self.internetReachability = [Reachability reachabilityForInternetConnection];
     [self.internetReachability startNotifier];
     
-    // PLCameraStreamingKit 使用开始
-    //
-    // streamJSON 是从服务端拿回的
-    //
-    // 从服务端拿回的 streamJSON 结构如下：
-    //    @{@"id": @"stream_id",
-    //      @"title": @"stream_title",
-    //      @"hub": @"hub_name",
-    //      @"publishKey": @"publish_key",
-    //      @"publishSecurity": @"dynamic", // or static
-    //      @"disabled": @(NO),
-    //      @"profiles": @[@"480p", @"720p"],    // or empty Array []
-    //      @"hosts": @{
-    //              ...
-    //      }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleInterruption:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:[AVAudioSession sharedInstance]];
+    
+
 #warning 如果要运行 demo 这里应该填写服务端返回的某个流的 json 信息
-    PLStream *stream = [PLStream streamWithJSON:[Help dictionaryWithJsonString:self.streamDic[@"stream"]]];
+    NSDictionary * dicStream = [Help dictionaryWithJsonString:self.streamDic[@"stream"]];
+    PLStream *stream = [PLStream streamWithJSON:dicStream];
     
     void (^permissionBlock)(void) = ^{
         dispatch_async(self.sessionQueue, ^{
+            PLVideoCaptureConfiguration *videoCaptureConfiguration = [self.videoCaptureConfigurations lastObject];
+            PLAudioCaptureConfiguration *audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
             // 视频编码配置
-            PLVideoStreamingConfiguration *videoConfiguration = [self.videoConfigurations lastObject];
+            PLVideoStreamingConfiguration *videoStreamingConfiguration = [self.videoStreamingConfigurations lastObject];
             // 音频编码配置
-            PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
-            
+            PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
+            AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
+            if (!self.orientationNum) {
+                orientation = AVCaptureVideoOrientationLandscapeRight;
+            }
             // 推流 session
-            self.session = [[PLCameraStreamingSession alloc] initWithVideoConfiguration:videoConfiguration
-                                                                     audioConfiguration:audioConfiguration
-                                                                                 stream:stream
-                                                                       videoOrientation:AVCaptureVideoOrientationPortrait];
+            self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream videoOrientation:orientation];
             self.session.delegate = self;
             self.session.bufferDelegate = self;
+            UIImage *waterMark = [UIImage imageNamed:@"qiniu"];
+            PLFilterHandler handler = [self.session addWaterMark:waterMark origin:CGPointMake(100, 300)];
+            self.filterHandlers = [@[handler] mutableCopy];
             dispatch_async(dispatch_get_main_queue(), ^{
-                UIView * uiview = [[UIView alloc] init];
                 if (!self.orientationNum) {
-                    uiview.transform = CGAffineTransformMakeRotation(M_PI/2);
-                    self.session.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+                    self.session.previewView.transform = CGAffineTransformMakeRotation(M_PI/2);
                 }
-                uiview.frame =self.view.frame;
-                self.session.previewView = uiview;
+                self.session.previewView.frame =self.view.frame;
                 
                 self.view.backgroundColor = [UIColor clearColor];
                 [self.view addSubview:self.session.previewView];
@@ -329,6 +306,21 @@ PLStreamingSendingBufferDelegate
     }
 }
 
+- (void)handleInterruption:(NSNotification *)notification {
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
+        NSLog(@"Interruption notification");
+        
+        if ([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeBegan]]) {
+            NSLog(@"InterruptionTypeBegan");
+        } else {
+            // the facetime iOS 9 has a bug: 1 does not send interrupt end 2 you can use application become active, and repeat set audio session acitve until success.  ref http://blog.corywiles.com/broken-facetime-audio-interruptions-in-ios-9
+            NSLog(@"InterruptionTypeEnded");
+            AVAudioSession *session = [AVAudioSession sharedInstance];
+            [session setActive:YES error:nil];
+        }
+    }
+}
+
 - (void)streamingSession:(id)session sendingBufferDidDropItems:(NSArray *)items {
     NSString *log = @"Frame dropped";
     NSLog(@"%@", log);
@@ -422,25 +414,27 @@ PLStreamingSendingBufferDelegate
 #pragma mark -
 
 - (void)higherQuality {
-    NSUInteger idx = [self.videoConfigurations indexOfObject:self.session.videoConfiguration];
+    NSUInteger idx = [self.videoStreamingConfigurations indexOfObject:self.session.videoStreamingConfiguration];
     NSAssert(idx != NSNotFound, @"Oops");
     
-    if (idx >= self.videoConfigurations.count - 1) {
+    if (idx >= self.videoStreamingConfigurations.count - 1) {
         return;
     }
-    PLVideoStreamingConfiguration *newConfiguration = self.videoConfigurations[idx + 1];
-    [self.session reloadVideoConfiguration:newConfiguration];
+    PLVideoStreamingConfiguration *newStreamingConfiguration = self.videoStreamingConfigurations[idx + 1];
+    PLVideoCaptureConfiguration *newCaptureConfiguration = self.videoCaptureConfigurations[idx + 1];
+    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration videoCaptureConfiguration:newCaptureConfiguration];
 }
 
 - (void)lowerQuality {
-    NSUInteger idx = [self.videoConfigurations indexOfObject:self.session.videoConfiguration];
+    NSUInteger idx = [self.videoStreamingConfigurations indexOfObject:self.session.videoStreamingConfiguration];
     NSAssert(idx != NSNotFound, @"Oops");
     
     if (0 == idx) {
         return;
     }
-    PLVideoStreamingConfiguration *newConfiguration = self.videoConfigurations[idx - 1];
-    [self.session reloadVideoConfiguration:newConfiguration];
+    PLVideoStreamingConfiguration *newStreamingConfiguration = self.videoStreamingConfigurations[idx - 1];
+    PLVideoCaptureConfiguration *newCaptureConfiguration = self.videoCaptureConfigurations[idx - 1];
+    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration videoCaptureConfiguration:newCaptureConfiguration];
 }
 
 #pragma mark - Operation
@@ -467,15 +461,15 @@ PLStreamingSendingBufferDelegate
 #pragma mark - Action
 
 - (IBAction)segmentedControlValueDidChange:(id)sender {
-    PLVideoStreamingConfiguration *config;
+    PLVideoCaptureConfiguration *videoCaptureConfiguration;
     if (self.orientationNum) {
-        config = self.videoConfigurations[self.segementedControl.selectedSegmentIndex];
+        videoCaptureConfiguration = self.videoCaptureConfigurations[self.segementedControl.selectedSegmentIndex];
     }else
     {
-        config = self.videoConfigurations[self.segementedControl1.selectedSegmentIndex];
+        videoCaptureConfiguration = self.videoCaptureConfigurations[self.segementedControl1.selectedSegmentIndex];;
     }
     
-    [self.session reloadVideoConfiguration:config];
+    [self.session reloadVideoStreamingConfiguration:self.session.videoStreamingConfiguration videoCaptureConfiguration:videoCaptureConfiguration];
 }
 
 - (IBAction)zoomSliderValueDidChange:(id)sender {
@@ -508,7 +502,13 @@ PLStreamingSendingBufferDelegate
 - (IBAction)torchButtonPressed:(id)sender {
     dispatch_async(self.sessionQueue, ^{
         self.session.torchOn = !self.session.isTorchOn;
+        
     });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        jjjjjjjViewController * jjjvc = [[jjjjjjjViewController alloc] init];
+//        [self presentViewController:jjjvc animated:YES completion:^{
+//        }];
+//    });
 }
 
 - (IBAction)muteButtonPressed:(id)sender {

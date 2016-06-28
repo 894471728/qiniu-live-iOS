@@ -1,36 +1,58 @@
 PODS:
-  - AFNetworking (3.0.4):
-    - AFNetworking/NSURLSession (= 3.0.4)
-    - AFNetworking/Reachability (= 3.0.4)
-    - AFNetworking/Security (= 3.0.4)
-    - AFNetworking/Serialization (= 3.0.4)
-    - AFNetworking/UIKit (= 3.0.4)
-  - AFNetworking/NSURLSession (3.0.4):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.0.4)
-  - AFNetworking/Security (3.0.4)
-  - AFNetworking/Serialization (3.0.4)
-  - AFNetworking/UIKit (3.0.4):
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - HappyDNS (0.2.3)
-  - PLCameraStreamingKit (1.6.2):
-    - PLStreamingKit (~> 1.1.5)
-  - PLStreamingKit (1.1.5):
+  - GPUImage (0.1.7)
+  - HappyDNS (0.3.5)
+  - pili-librtmp (1.0.3)
+  - PLCameraStreamingKit (1.7.2):
+    - GPUImage (= 0.1.7)
+    - PLCameraStreamingKit/precompiled (= 1.7.2)
+    - PLStreamingKit (~> 1.2.0)
+  - PLCameraStreamingKit/precompiled (1.7.2):
+    - GPUImage (= 0.1.7)
+    - PLStreamingKit (~> 1.2.0)
+  - PLPlayerKit (2.2.1):
     - HappyDNS
-    - PLStreamingKit/precompiled (= 1.1.5)
-  - PLStreamingKit/precompiled (1.1.5):
+    - pili-librtmp
+    - PLPlayerKit/precompiled (= 2.2.1)
+  - PLPlayerKit/precompiled (2.2.1):
     - HappyDNS
+    - pili-librtmp
+  - PLStreamingKit (1.2.3):
+    - HappyDNS
+    - pili-librtmp
+    - PLStreamingKit/precompiled (= 1.2.3)
+  - PLStreamingKit/precompiled (1.2.3):
+    - HappyDNS
+    - pili-librtmp
 
 DEPENDENCIES:
   - AFNetworking
   - PLCameraStreamingKit
+  - PLPlayerKit
 
 SPEC CHECKSUMS:
-  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
-  PLCameraStreamingKit: a17ac88c71ee84ebf148d7c4c1be843dbb9da2d6
-  PLStreamingKit: 3792348c354af2271629eeb154e0e83774f34c07
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
+  pili-librtmp: 50faa17413c635cca5ceccb1a8f9f6acc6587a45
+  PLCameraStreamingKit: d818f7544bf6ee3bcc96f9938fde2155ca0ed03c
+  PLPlayerKit: d0b902dccfbbc39519096b4f86e4e393c5f87bc3
+  PLStreamingKit: 78493718defffd1711dce80d7872e65050a29bac
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 97e6955e948855f8a8fb8363eddc1a673695d5bf
+
+COCOAPODS: 1.0.1

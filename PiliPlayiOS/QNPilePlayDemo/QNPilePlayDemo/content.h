@@ -67,6 +67,8 @@
 #define httpImage(base,string) [string hasPrefix:@"http"]?string:([NSString stringWithFormat:@"%@%@",base,string])
 #define REST_API_KEY    @""
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 #define UMENG_APPKEY    @"4eeb0c7b527015643b000003"
 
 // 网络请求常用

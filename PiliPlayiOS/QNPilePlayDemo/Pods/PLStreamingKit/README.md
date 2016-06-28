@@ -18,16 +18,18 @@ PLStreamingKit 不包括摄像头、麦克风等设备相关的资源获取，�
 - [x] 音视频配置分离
 - [x] 推流时可变码率
 - [x] 提供发送 buffer
+- [x] 与 GPUImage 轻松对接
 
 ## 内容摘要
 
 - [快速开始](#快速开始)
 	- [配置工程](#配置工程)
 	- [示例代码](#示例代码)
+- [GPUImage 视频滤镜](#GPUImage)
 - [编码参数](#编码参数)
 - [流状态变更及错误处理](#流状态变更及处理处理)
 - [变更推流质量及策略](#变更推流质量及策略)
-    - [重要事项](#重要事项)
+- [手动导入到工程](#手动导入到工程)
 - [文档支持](#文档支持)
 - [功能特性](#功能特性)
 - [系统要求](#系统要求)
@@ -60,6 +62,18 @@ pod update
 - Done! 运行你工程的 workspace
 
 ### 示例代码
+在 `AppDelegate.m` 中进行 SDK 初始化，如果未进行 SDK 初始化，在核心类 `PLStreamingSession` 初始化阶段将抛出异常
+
+```Objective-C
+#import <PLStreamingKit/PLStreamingEnv.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [PLStreamingEnv initEnv];
+    // Override point for customization after application launch.
+    return YES;
+}
+```
 
 在需要的地方添加
 
@@ -69,7 +83,7 @@ pod update
 
 `PLStreamingSession` 是核心类，你只需要关注并使用这个类就可以完成推流工作。
 
-`StreamingSession` 的创建
+`PLStreamingSession ` 的创建
 
 ```Objective-C
 // streamJSON 是从服务端拿回的
@@ -86,11 +100,11 @@ pod update
 //            ...
 //      }
 NSDictionary *streamJSON;
-PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration configurationWithVideoSize:CGSizeMake(320, 576) videoQuality:kPLVideoStreamingQualityLow2];
-PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
+PLVideoStreamingConfiguration *videoStreamingConfiguration = [PLVideoStreamingConfiguration configurationWithVideoSize:CGSizeMake(320, 576) videoQuality:kPLVideoStreamingQualityLow2];
+PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
 PLStream *stream = [PLStream streamWithJSON:streamJSON];
-    
-self.session = [[PLStreamingSession alloc] initWithVideoConfiguration:videoConfiguration audioConfiguration:audioConfiguration stream:stream];
+
+self.session = [[PLStreamingSession alloc] initWithVideoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream];
 self.session.delegate = self;
 ```
 
@@ -113,9 +127,70 @@ self.session.delegate = self;
 ```
 
 销毁推流 session
+
 ```Objective-C
 [self.session destroy];
 ```
+
+## <a name="GPUImage"></a>GPUImage 视频滤镜
+
+GPUImage 作为当前 iOS 平台使用率最高的图像渲染引擎，可以轻松与 PLStreamingKit 对接，利用 GPUImage 已有的 125 个内置滤镜满足大部分的直播滤镜需求。
+
+### 接入 GPUImage
+
+接入工程的方式详见官方 README.md https://github.com/BradLarson/GPUImage
+
+### 滤镜实例
+
+```Objective-C
+// 使用 GPUImageVideoCamera 获取摄像头数据
+GPUImageVideoCamera *videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
+videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+
+// 创建一个 filter
+GPUImageSketchFilter *filter = [[GPUImageSketchFilter alloc] init];
+
+CGRect bounds = [UIScreen mainScreen].bounds;
+CGFloat width = CGRectGetWidth(bounds);
+CGFloat height = width * 640.0 / 480.0;
+GPUImageView *filteredVideoView = [[GPUImageView alloc] initWithFrame:(CGRect){0, 64, width, height}];
+
+// Add the view somewhere so it's visible
+[self.view addSubview:filteredVideoView];
+
+[videoCamera addTarget:filter];
+[filter addTarget:filteredVideoView];
+
+// 创建一个 GPUImageRawDataOutput 作为 filter 的 Target
+GPUImageRawDataOutput *rawDataOutput = [[GPUImageRawDataOutput alloc] initWithImageSize:CGSizeMake(480, 640) resultsInBGRAFormat:YES];
+[filter addTarget:rawDataOutput];
+__weak GPUImageRawDataOutput *weakOutput = rawDataOutput;
+__weak typeof(self) wself = self;
+[rawDataOutput setNewFrameAvailableBlock:^{
+    __strong GPUImageRawDataOutput *strongOutput = weakOutput;
+    __strong typeof(wself) strongSelf = wself;
+    [strongOutput lockFramebufferForReading];
+
+    //从 GPUImageRawDataOutput 中获取 CVPixelBufferRef
+    GLubyte *outputBytes = [strongOutput rawBytesForImage];
+    NSInteger bytesPerRow = [strongOutput bytesPerRowInOutput];
+    CVPixelBufferRef pixelBuffer = NULL;
+    CVPixelBufferCreateWithBytes(kCFAllocatorDefault, 480, 640, kCVPixelFormatType_32BGRA, outputBytes, bytesPerRow, nil, nil, nil, &pixelBuffer);
+    [strongOutput unlockFramebufferAfterReading];
+    if(pixelBuffer == NULL) {
+        return ;
+    }
+
+    // 发送视频数据
+    [strongSelf.session pushPixelBuffer:pixelBuffer completion:^{
+        CVPixelBufferRelease(pixelBuffer);
+    }];
+}];
+
+[videoCamera startCameraCapture];
+```
+
+完整的可运行代码在 Example 中。
 
 ## 编码参数
 
@@ -195,10 +270,10 @@ extern NSString *kPLVideoStreamingQualityHigh3;
 
 ```Objective-C
 // 该方法每次都会生成一个新的配置，不是单例方法。默认情况下，对应的参数为分辨率 (320, 480), video quality PLStreamingQualityMedium1
-PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
+PLVideoStreamingConfiguration *videoStreamingConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
 
 // 你也可以指定自己想要的分辨率和已有的 video quality 参数
-PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration configurationWithVideoSize:CGSizeMake(320, 480) videoQuality:kPLVideoStreamingQualityHigh1];
+PLVideoStreamingConfiguration *videoStreamingConfiguration = [PLVideoStreamingConfiguration configurationWithVideoSize:CGSizeMake(320, 480) videoQuality:kPLVideoStreamingQualityHigh1];
 
 // 当已有的分辨率无法满足你的需求时，你可以自己定义所有参数，但请务必确保你清楚参数的含义
 PLVideoStreamingConfiguration *videoConfiguration = [[PLVideoStreamingConfiguration alloc] initWithVideoSize:CGSizeMake(width, height) videoFrameRate:30 videoMaxKeyframeInterval:90 videoBitrate:1200 * 1000 videoProfileLevel:AVVideoProfileLevelH264Main32]];
@@ -223,18 +298,34 @@ PLVideoStreamingConfiguration *videoConfiguration = [[PLVideoStreamingConfigurat
 ```
 // 音频推流质量
 /*!
- * @abstract Audio streaming quality high 1
- *
- * @discussion 具体参数 audio sample rate: 44MHz, audio bitrate: 96Kbps
+    @constant   kPLAudioStreamingQualityHigh1
+    @abstract   音频编码推流质量 high 1。
+
+    @discussion 具体参数 audio bitrate: 64Kbps。
+
+    @since      v1.0.0
  */
 extern NSString *kPLAudioStreamingQualityHigh1;
 
 /*!
- * @abstract Audio streaming quality high 2
- *
- * @discussion 具体参数 audio sample rate: 44MHz, audio bitrate: 128Kbps
+    @constant   kPLAudioStreamingQualityHigh2
+    @abstract   音频编码推流质量 high 2。
+
+    @discussion 具体参数 audio bitrate: 96Kbps。
+
+    @since      v1.0.0
  */
 extern NSString *kPLAudioStreamingQualityHigh2;
+
+/*!
+ @constant   kPLAudioStreamingQualityHigh3
+ @abstract   音频编码推流质量 high 3。
+
+ @discussion 具体参数 audio bitrate: 128Kbps。
+
+ @since      v1.0.0
+ */
+extern NSString *kPLAudioStreamingQualityHigh3;
 ```
 
 生成音频编码配置
@@ -249,10 +340,11 @@ PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfigurati
 
 ### Audio Quality 具体参数
 
-| Quality | Audio Samplerate(MHz)) | Audio BitRate(Kbps) |
-|---|---|---|
-|kPLAudioStreamingQualityHigh1|44|96|
-|kPLAudioStreamingQualityHigh2|44|128|
+| Quality | Audio BitRate(Kbps) |
+|---|---|
+|kPLAudioStreamingQualityHigh1|64|
+|kPLAudioStreamingQualityHigh2|96|
+|kPLAudioStreamingQualityHigh3|128|
 
 在创建好编码配置对象后，就可以用它来初始化 ```PLStreamingSession``` 了。
 
@@ -322,12 +414,18 @@ buffer 是一个可以缓存待发送内容的队列，它按照帧数作为缓�
 当你希望在 streamStatus 变化，buffer empty 或者 buffer full 时变化 video configuration，可以调用 session 的 reloadVideoConfiguration: 方法
 
 ```Objective-C
-[self.session reloadVideoConfiguration:newConfiguraiton];
+[self.session reloadVideoStreamingConfiguration:newConfiguraiton];
 ```
 
-### 重要事项
+## 手动导入到工程
 
-**在调用 `reloadVideoConfiguration:newConfiguraiton` 时，请务必确保 profileLevel 和 videoSize 前后一致，如果该参数有变更，需要先调用 stop, 重新开始推流, 否则可能会因播放器对解码器构建的差异而产生花屏、绿屏等问题。**
+我们建议使用 CocoaPods 导入，如果由于特殊原因需要手动导入，可以按照如下步骤进行：
+
+ - 将 Pod 目录下的文件加入到工程中；
+ - 将 https://github.com/qiniu/happy-dns-objc HappyDNS 目录下的所有文件加入到工程中；
+ - 将 https://github.com/pili-engineering/pili-librtmp Pod 目录下的所有文件加入到工程中；
+ - 在工程对应 TARGET 中，右侧 Tab 选择 "Build Phases"，在 "Link Binary With Libraries" 中加入 UIKit、AVFoundation、CoreGraphics、CFNetwork、CoreMedia、AudioToolbox 这些 framework，并加入 libc++.tdb、libz.tdb 及 libresolv.tbd；
+ - 在工程对应 TARGET 中，右侧 Tab 选择 "Build Settings"，在 "Other Linker Flags" 中加入 "-ObjC" 选项；
 
 ## 文档支持
 
@@ -342,6 +440,30 @@ PLStreamingKit 使用 HeaderDoc 注释来做文档支持。
 
 ## 版本历史
 
+- 1.2.3 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.2.3.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.2.3.md))
+  - 功能
+    - 更新底层依赖的 pili-librtmp 到 v1.0.3
+- 1.2.2 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.2.2.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.2.2.md))
+  - 功能
+    - 支持初始化的时候传入 stream 为 nil
+    - 支持调节音频编码采样率
+    - 支持快速重连操作，方便 4G 推流时切换 WIFI 场景快速切换网络
+    - 完善了音频出错时的 log
+- 1.2.1 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.2.1.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.2.1.md))
+  - 功能
+    - 新增 iOS9 下的纯 IPV6 环境支持
+  - 缺陷
+    - 修复 dynamic 鉴权方式下重连失效的问题
+- 1.2.0 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.2.0.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.2.0.md))
+    - 解决 iPhone 6s 上出现的电流音问题
+    - 支持后台推流
+    - 支持 64kbps 音频码率
+    - 部分接口重命名
+- 1.1.6 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.1.6.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.1.6.md))
+	- 拆分 pili-librtmp 为公共依赖，避免模拟器环境下与 PLPlayerKit冲突的问题
+	- 解决网络不可达条件下 `- (void)startWithCompleted:(void (^)(BOOL success))handler;` 方法无回调的问题
+	- 新增质量上报支持
+	- 增加推流中实时变换采集音频参数的接口
 - 1.1.5 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.1.5.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.1.5.md))
     - 修复 `v1.1.1` 版本引入的断网时引起的 UI 卡死问题，强烈建议 >= `v1.1.1` 的均做更新
 - 1.1.4 ([Release Notes](https://github.com/pili-engineering/PLStreamingKit/blob/master/ReleaseNotes/release-notes-1.1.4.md) && [API Diffs](https://github.com/pili-engineering/PLStreamingKit/blob/master/APIDiffs/api-diffs-1.1.4.md))

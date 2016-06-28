@@ -4,23 +4,32 @@ PLCameraStreamingKit 是一个适用于 iOS 的 RTMP 直播推流 SDK，可高�
 
 ## 功能特性
 
-- [x] 硬件编码
+- [x] 采集模块源码开放
+- [x] 支持硬件编码
 - [x] 多码率可选
-- [x] H.264 视频编码
-- [x] AAC 音频编码
+- [x] 支持 H.264 视频编码
+- [x] 支持 AAC 音频编码
 - [x] 支持前后摄像头
-- [x] 自动对焦支持
-- [x] 手动调整对焦点支持
-- [x] 闪光灯开关
-- [x] 多分辨率编码支持
-- [x] HeaderDoc 文档支持
-- [x] 内置生成安全的 RTMP 推流地址
-- [x] ARM64 支持
+- [x] 支持自动对焦
+- [x] 支持手动调整对焦点
+- [x] 支持闪光灯操作
+- [x] 支持多分辨率编码
+- [x] 支持 HeaderDoc 文档
+- [x] 支持构造带安全授权凭证的 RTMP 推流地址
+- [x] 支持 ARMv7, ARM64, i386, x86_64 架构
 - [x] 支持 RTMP 协议直播推流
-- [x] 音视频配置分离
-- [x] 推流时可变码率
+- [x] 支持音视频配置分离
+- [x] 支持推流时可变码率
 - [x] 提供发送 buffer
 - [x] 支持 Zoom 操作
+- [x] 支持音频 Mute 操作
+- [x] 支持视频 Orientation 操作
+- [x] 支持自定义 DNS 解析
+- [x] 支持弱网丢帧策略
+- [x] 支持纯音频或纯视频推流
+- [x] 支持后台音频推流
+- [x] 支持水印功能
+- [x] 支持美颜功能
 
 ## 内容摘要
 
@@ -64,6 +73,19 @@ pod update
 
 ### 示例代码
 
+在 `AppDelegate.m` 中进行 SDK 初始化（如果不进行SDK）初始化将在核心类 `PLStreamingSession` 初始化阶段抛错
+
+```Objective-C
+#import <PLStreamingKit/PLStreamingEnv.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [PLStreamingEnv initEnv];
+    // Override point for customization after application launch.
+    return YES;
+}
+```
+
 在需要的地方添加
 
 ```Objective-C
@@ -88,26 +110,26 @@ pod update
 //      @"hosts": @{
 //            ...
 //      }
-NSDicationary *streamJSON;
+NSDictionary *streamJSON;
 PLStream *stream = [PLStream streamWithJSON:streamJSON];
 // 授权后执行
 void (^permissionBlock)(void) = ^{
-        PLVideoStreamingConfiguration *videoConfiguration = [[PLVideoStreamingConfiguration defaultConfiguration]; 
-        PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
-        
-        self.session = [[PLCameraStreamingSession alloc] initWithVideoConfiguration:videoConfiguration
-                                                                 audioConfiguration:audioConfiguration
-                                                                             stream:stream
-                                                                   videoOrientation:AVCaptureVideoOrientationPortrait];
-        self.session.delegate = self;
-        self.session.previewView = self.view;
+			PLVideoCaptureConfiguration *videoCaptureConfiguration = [self.videoCaptureConfigurations defaultConfiguration];
+			PLAudioCaptureConfiguration *audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
+			PLVideoStreamingConfiguration *videoStreamingConfiguration = [self.videoStreamingConfigurations defaultConfiguration];
+			PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
+
+      self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream videoOrientation:orientation];
+
+      self.session.delegate = self;
+      self.session.previewView = self.view;
 };
 
 void (^noPermissionBlock)(void) = ^{ // 处理未授权情况 };
-    
+
 // 检查摄像头是否有授权
 PLAuthorizationStatus status = [PLCameraStreamingSession cameraAuthorizationStatus];
-   
+
 if (PLAuthorizationStatusNotDetermined == status) {
     [PLCameraStreamingSession requestCameraAccessWithCompletionHandler:^(BOOL granted) {
     // 回调确保在主线程，可以安全对 UI 做操作
@@ -142,6 +164,10 @@ if (PLAuthorizationStatusNotDetermined == status) {
 ```Objective-C
 [self.session destroy];
 ```
+
+## 采集参数
+
+
 
 ## 编码参数
 
@@ -363,6 +389,40 @@ PLCameraStreamingKit 使用 HeaderDoc 注释来做文档支持。
 
 ## 版本历史
 
+- 1.7.2 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.7.2.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.7.2.md))
+  - 功能
+    - 更新依赖的 PLStreamingKit 到 1.2.2
+    - 新增回调队列配置功能
+    - 新增默认摄像头位置配置项
+    - 新增录制音量调节选项（由于系统原因，仅对除 iPhone 6s 系列以外的机型生效）
+    - 支持初始化的时候传入 stream 为 nil
+    - 支持快速重连操作，方便 4G 推流时切换 WIFI 场景快速切换网络
+
+  - 缺陷
+    - 修复特殊场景可能出现的电流音问题
+    - 修复特殊场景可能出现的没有声音的问题
+    - 修复后台推流时被音频打断结束之后无法正常恢复推流的问题
+- 1.7.1 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.7.1.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.7.1.md))
+  - 缺陷
+    - 修复切换前置摄像头之后无法缩放的问题
+    - 修复不添加水印无法正常推流的问题
+- 1.7.0 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.7.0.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.7.0.md))
+  - 功能
+    - 新增后台推流功能（仅音频，因 iOS 隐私限制不允许后台访问摄像头）
+    - 新增水印功能
+    - 新增可选定制美颜功能（需联系工作人员）
+
+  - 缺陷
+    - 修复特定机型上的电流音等杂音问题
+
+  - 版本
+    - 更新依赖 PLStreamingKit 的版本到 `v1.2.0`
+
+  - 其他
+    - 部分接口重命名
+- 1.6.3 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.6.2.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.6.2.md))
+    - 更新依赖 PLStreamingKit 的版本到 `v1.1.6`
+    - 更新 Demo 适应 PLStreamingKit `v1.1.6` 接口变更
 - 1.6.2 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.6.2.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.6.2.md))
     - 更新依赖 PLStreamingKit 的版本到 `v1.1.5`
     - 支持 Zoom 操作
@@ -419,7 +479,7 @@ PLCameraStreamingKit 使用 HeaderDoc 注释来做文档支持。
     - 尝试修复音频获取不到权限的问题
     - 添加关闭 SDK 渲染 preview 的接口
 - 1.4.6 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.6.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.6.md))
-    - 修复弱网环境下切换 VideoQuality 可能触发的 crash 问题 
+    - 修复弱网环境下切换 VideoQuality 可能触发的 crash 问题
     - 添加 `PLAudioComponentFailedToCreateNotification` 通知，在音频资源被占用时，创建音频结构失败会发送这个通知
 - 1.4.5 ([Release Notes](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/ReleaseNotes/release-notes-1.4.5.md) && [API Diffs](https://github.com/pili-engineering/PLCameraStreamingKit/blob/master/APIDiffs/api-diffs-1.4.5.md))
     - 添加自行绘制 CMSampleBufferRef 的支持

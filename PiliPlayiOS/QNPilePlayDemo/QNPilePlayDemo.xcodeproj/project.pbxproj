@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7883716A2C09A36B38616300 /* libPods-QNPilePlayDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE80BF52C550D2FC5C5449 /* libPods-QNPilePlayDemo.a */; };
 		9310C1D81BF5F15400C1C8A4 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CE1BF5F15400C1C8A4 /* Icon-120.png */; };
 		9310C1D91BF5F15400C1C8A4 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1CF1BF5F15400C1C8A4 /* Icon-72.png */; };
 		9310C1DA1BF5F15400C1C8A4 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D01BF5F15400C1C8A4 /* Icon-72@2x.png */; };
@@ -25,6 +26,7 @@
 		936D1FF61BE76EB700EAE34E /* QNPiliComeBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936D1FF41BE76EB700EAE34E /* QNPiliComeBackVC.xib */; };
 		93700CB81BE76756005356DD /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93700CB71BE76756005356DD /* BaseVC.m */; };
 		93753A911BF0EBB400DA0FBD /* Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 93753A901BF0EBB400DA0FBD /* Help.m */; };
+		93783B441D1BAC9400B27B65 /* qiniu.png in Resources */ = {isa = PBXBuildFile; fileRef = 93783B431D1BAC9400B27B65 /* qiniu.png */; };
 		937CC3951BE8B161009688B6 /* playLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3941BE8B161009688B6 /* playLogo.png */; };
 		937CC3971BE8B16A009688B6 /* stopLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 937CC3961BE8B16A009688B6 /* stopLogo.png */; };
 		938510FC1BF19753002F3BE9 /* QNPiliCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 938510FA1BF19753002F3BE9 /* QNPiliCell.m */; };
@@ -81,14 +83,11 @@
 		93D159FB1BF329AB00EBEDE3 /* QNPiliUserListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D159F91BF329AB00EBEDE3 /* QNPiliUserListVC.m */; };
 		93D159FC1BF329AB00EBEDE3 /* QNPiliUserListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D159FA1BF329AB00EBEDE3 /* QNPiliUserListVC.xib */; };
 		93D2043C1BE99E1600733589 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D2043B1BE99E1600733589 /* microphone.png */; };
-		93D8A5091C990AE5008C030A /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */; };
-		93D8A50A1C990AE5008C030A /* PLPlayerKitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */; };
 		93F9A3631BE9FDA500DCD2AF /* UserInfoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3621BE9FDA500DCD2AF /* UserInfoClass.m */; };
 		93F9A3671BEA042F00DCD2AF /* RegistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A3651BEA042F00DCD2AF /* RegistVC.m */; };
 		93F9A3681BEA042F00DCD2AF /* RegistVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A3661BEA042F00DCD2AF /* RegistVC.xib */; };
 		93F9A36C1BEA045200DCD2AF /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F9A36A1BEA045200DCD2AF /* LoginVC.m */; };
 		93F9A36D1BEA045200DCD2AF /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F9A36B1BEA045200DCD2AF /* LoginVC.xib */; };
-		A214FD5A7AD7D41C193D1825 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0BEE933B3C0EC9BBD5309B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02153486ADFB701923E826A9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		8436ABEFD75753E04D3ECB07 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		77CE80BF52C550D2FC5C5449 /* libPods-QNPilePlayDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QNPilePlayDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9310C1CE1BF5F15400C1C8A4 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		9310C1CF1BF5F15400C1C8A4 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		9310C1D01BF5F15400C1C8A4 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
@@ -134,6 +132,7 @@
 		93700CB71BE76756005356DD /* BaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 		93753A8F1BF0EBB400DA0FBD /* Help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Help.h; sourceTree = "<group>"; };
 		93753A901BF0EBB400DA0FBD /* Help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Help.m; sourceTree = "<group>"; };
+		93783B431D1BAC9400B27B65 /* qiniu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qiniu.png; sourceTree = "<group>"; };
 		937CC3941BE8B161009688B6 /* playLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playLogo.png; sourceTree = "<group>"; };
 		937CC3961BE8B16A009688B6 /* stopLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopLogo.png; sourceTree = "<group>"; };
 		938510F91BF19753002F3BE9 /* QNPiliCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPiliCell.h; sourceTree = "<group>"; };
@@ -228,8 +227,6 @@
 		93D159F91BF329AB00EBEDE3 /* QNPiliUserListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPiliUserListVC.m; sourceTree = "<group>"; };
 		93D159FA1BF329AB00EBEDE3 /* QNPiliUserListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QNPiliUserListVC.xib; sourceTree = "<group>"; };
 		93D2043B1BE99E1600733589 /* microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphone.png; sourceTree = "<group>"; };
-		93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
-		93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PLPlayerKitFramework.framework; sourceTree = "<group>"; };
 		93F9A3611BE9FDA500DCD2AF /* UserInfoClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoClass.h; sourceTree = "<group>"; };
 		93F9A3621BE9FDA500DCD2AF /* UserInfoClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoClass.m; sourceTree = "<group>"; };
 		93F9A3641BEA042F00DCD2AF /* RegistVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistVC.h; sourceTree = "<group>"; };
@@ -238,7 +235,8 @@
 		93F9A3691BEA045200DCD2AF /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		93F9A36A1BEA045200DCD2AF /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		93F9A36B1BEA045200DCD2AF /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
-		FA0BEE933B3C0EC9BBD5309B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A16937ABE7057500BD40A68D /* Pods-QNPilePlayDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QNPilePlayDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QNPilePlayDemo/Pods-QNPilePlayDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BDB8F5E26480972226DA9F52 /* Pods-QNPilePlayDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QNPilePlayDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-QNPilePlayDemo/Pods-QNPilePlayDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,9 +244,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A214FD5A7AD7D41C193D1825 /* libPods.a in Frameworks */,
-				93D8A5091C990AE5008C030A /* IJKMediaFramework.framework in Frameworks */,
-				93D8A50A1C990AE5008C030A /* PLPlayerKitFramework.framework in Frameworks */,
+				7883716A2C09A36B38616300 /* libPods-QNPilePlayDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +271,7 @@
 				93D159F01BF2F23200EBEDE3 /* MediaPlayer.framework */,
 				93CF54D21BDF0E43004CA713 /* CoreMedia.framework */,
 				93CF54D01BDF0E3A004CA713 /* AVFoundation.framework */,
-				FA0BEE933B3C0EC9BBD5309B /* libPods.a */,
+				77CE80BF52C550D2FC5C5449 /* libPods-QNPilePlayDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -348,8 +344,8 @@
 				93CEF4B91BDE1E8100750FE8 /* QNPilePlayDemoTests */,
 				93CEF4C41BDE1E8100750FE8 /* QNPilePlayDemoUITests */,
 				93CEF49E1BDE1E8100750FE8 /* Products */,
-				A3769A4FE16E34889D964FA3 /* Pods */,
 				5616963DAD1FFBE21F84A4BE /* Frameworks */,
+				983054A9207EED4EF4F37DDE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -434,6 +430,7 @@
 				93CE79381BEC4D5800C2F901 /* clock_now@3x.png */,
 				93D2043B1BE99E1600733589 /* microphone.png */,
 				93CEF4A11BDE1E8100750FE8 /* main.m */,
+				93783B431D1BAC9400B27B65 /* qiniu.png */,
 				933EA56F1BDE245700E256E5 /* QNPiliPlayDemo.pch */,
 			);
 			name = "Supporting Files";
@@ -473,7 +470,6 @@
 		93CF54E11BDF0FEF004CA713 /* Thired */ = {
 			isa = PBXGroup;
 			children = (
-				93D8A5061C990AE5008C030A /* deps */,
 				93CFA76C1C196609009C003E /* UIImage+Barrage.h */,
 				93CFA76D1C196609009C003E /* UIImage+Barrage.m */,
 				93CEE0E91BE890F800958C42 /* Reachability.h */,
@@ -531,20 +527,11 @@
 			path = userInfo;
 			sourceTree = "<group>";
 		};
-		93D8A5061C990AE5008C030A /* deps */ = {
+		983054A9207EED4EF4F37DDE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				93D8A5071C990AE5008C030A /* IJKMediaFramework.framework */,
-				93D8A5081C990AE5008C030A /* PLPlayerKitFramework.framework */,
-			);
-			path = deps;
-			sourceTree = "<group>";
-		};
-		A3769A4FE16E34889D964FA3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8436ABEFD75753E04D3ECB07 /* Pods.debug.xcconfig */,
-				02153486ADFB701923E826A9 /* Pods.release.xcconfig */,
+				A16937ABE7057500BD40A68D /* Pods-QNPilePlayDemo.debug.xcconfig */,
+				BDB8F5E26480972226DA9F52 /* Pods-QNPilePlayDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -556,12 +543,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93CEF4CA1BDE1E8100750FE8 /* Build configuration list for PBXNativeTarget "QNPilePlayDemo" */;
 			buildPhases = (
-				298EDA9BD297ABE21CB76CDB /* Check Pods Manifest.lock */,
+				E569FAE4779064B225557C4E /* [CP] Check Pods Manifest.lock */,
 				93CEF4991BDE1E8100750FE8 /* Sources */,
 				93CEF49A1BDE1E8100750FE8 /* Frameworks */,
 				93CEF49B1BDE1E8100750FE8 /* Resources */,
-				0E40A80BDD60DCA38E38B815 /* Copy Pods Resources */,
-				A2C7CE570B3655E8C628185E /* Embed Pods Frameworks */,
+				53FE9D43AC5026BC8B76CB6C /* [CP] Embed Pods Frameworks */,
+				99850C1D37EF319A0E5EFDB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -678,6 +665,7 @@
 				938511111BF1D80F002F3BE9 /* btn_down@3x.png in Resources */,
 				93CEE0E31BE84DDD00958C42 /* QNPiliPlayVC.xib in Resources */,
 				93CF55111BDF1C5A004CA713 /* QNPiliPlayerVC.xib in Resources */,
+				93783B441D1BAC9400B27B65 /* qiniu.png in Resources */,
 				9310C1E11BF5F15400C1C8A4 /* pili.png in Resources */,
 				936D1FF11BE76B7A00EAE34E /* VCList.plist in Resources */,
 				938511061BF1CCAB002F3BE9 /* QNPiliChoseVC.xib in Resources */,
@@ -723,49 +711,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E40A80BDD60DCA38E38B815 /* Copy Pods Resources */ = {
+		53FE9D43AC5026BC8B76CB6C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QNPilePlayDemo/Pods-QNPilePlayDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		298EDA9BD297ABE21CB76CDB /* Check Pods Manifest.lock */ = {
+		99850C1D37EF319A0E5EFDB0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QNPilePlayDemo/Pods-QNPilePlayDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E569FAE4779064B225557C4E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A2C7CE570B3655E8C628185E /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -948,7 +936,7 @@
 		};
 		93CEF4CB1BDE1E8100750FE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8436ABEFD75753E04D3ECB07 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = A16937ABE7057500BD40A68D /* Pods-QNPilePlayDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -962,6 +950,55 @@
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"GPUImage\"",
+					"-l\"HappyDNS\"",
+					"-l\"PLCameraStreamingKit\"",
+					"-l\"PLPlayerKit\"",
+					"-l\"PLStreamingKit\"",
+					"-l\"bz2\"",
+					"-l\"c++\"",
+					"-l\"iconv\"",
+					"-l\"pili-librtmp\"",
+					"-l\"resolv\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreAudio\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"VideoToolbox\"",
+					"-w",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";
@@ -970,7 +1007,7 @@
 		};
 		93CEF4CC1BDE1E8100750FE8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02153486ADFB701923E826A9 /* Pods.release.xcconfig */;
+			baseConfigurationReference = BDB8F5E26480972226DA9F52 /* Pods-QNPilePlayDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -984,6 +1021,55 @@
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"GPUImage\"",
+					"-l\"HappyDNS\"",
+					"-l\"PLCameraStreamingKit\"",
+					"-l\"PLPlayerKit\"",
+					"-l\"PLStreamingKit\"",
+					"-l\"bz2\"",
+					"-l\"c++\"",
+					"-l\"iconv\"",
+					"-l\"pili-librtmp\"",
+					"-l\"resolv\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreAudio\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"VideoToolbox\"",
+					"-w",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";

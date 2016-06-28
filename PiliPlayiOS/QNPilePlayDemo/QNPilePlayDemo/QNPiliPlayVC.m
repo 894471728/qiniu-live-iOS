@@ -7,7 +7,9 @@
 //
 
 #import "QNPiliPlayVC.h"
-#import <PLPlayerKitFramework/PLPlayerKitFramework.h>
+#import <PLPlayerKit/PLPlayer.h>
+
+#define enableBackgroundPlay    1
 
 static NSString *status[] = {
     @"PLPlayerStatusUnknow",
@@ -42,6 +44,7 @@ PLPlayerDelegate
     self = [super init];
     if (self) {
         self.url = [NSURL URLWithString:dic[@"playUrls"][@"ORIGIN"]];
+//        self.url = [NSURL URLWithString:@"rtmp://pili-live-rtmp.live.golanghome.com/jinxinxin/56eba5e8d409d2b03d001eae"];
         self.dic = dic;
     }
     
@@ -56,14 +59,29 @@ PLPlayerDelegate
     [super viewDidLoad];
     
     self.title = @"播放";
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    self.player = [[PLPlayer alloc] initWithURL:self.url];
+    PLPlayerOption *option = [PLPlayerOption defaultOption];
+    [option setOptionValue:@10 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
+    
+    // 初始化 PLPlayer
+    self.player = [PLPlayer playerWithURL:self.url option:option];
+    
+    // 设定代理 (optional)
     self.player.delegate = self;
-    self.player.timeoutIntervalForMediaPackets = 15;
+    self.player.delegateQueue = dispatch_get_main_queue();
+    self.player.backgroundPlayEnable = enableBackgroundPlay;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startPlayer) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self.view addSubview:self.player.playerView];
     self.playerView = self.player.playerView;
-    self.playerView.frame = self.view.bounds;
-    [self.player prepareToPlay];
+//    self.playerView.frame = self.view.frame;
+    if ([[NSString stringWithFormat:@"%@",self.dic[@"orientation"]] isEqualToString:@"1"]) {
+        self.playerView.frame = CGRectMake(0, 0, kDeviceWidth, KDeviceHeight);
+        
+    }else{
+        self.playerView.frame = CGRectMake(0, 0, KDeviceHeight, kDeviceWidth);
+    }
+    
     [self.player play];
     [self addBtn];
 }
@@ -88,6 +106,10 @@ PLPlayerDelegate
     [self.forceConnectBtn addTarget:self action:@selector(button:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.forceConnectBtn];
     
+}
+
+- (void)startPlayer {
+    [self.player play];
 }
 
 
@@ -155,23 +177,28 @@ PLPlayerDelegate
 - (void)reconnect {
     dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_barrier_async(queue, ^{
-        NSURL *url = self.player.url;
+        NSURL *url = self.player.URL;
         if (self.player) {
             self.player.delegate = nil;
             [self.player stop];
             self.player = nil;
         }
         
+        // 初始化 PLPlayerOption 对象
+        PLPlayerOption *option = [PLPlayerOption defaultOption];
+        
+        // 更改需要修改的 option 属性键所对应的值
+        [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
         dispatch_sync(dispatch_get_main_queue(), ^{
-            self.player = [[PLPlayer alloc] initWithURL:url];
+            // 初始化 PLPlayer
+            self.player = [PLPlayer playerWithURL:url option:option];
         });
         self.player.delegate = self;
-        self.player.timeoutIntervalForMediaPackets = 15;
-        self.player.scalingMode = PLPlayerViewScalingModeAspectFill;
+        self.player.playerView.contentMode = UIViewContentModeScaleAspectFill;
         
         [self performSelectorOnMainThread:@selector(resetPlayerView) withObject:nil waitUntilDone:YES];
         
-        [self.player prepareToPlay];
+        [self.player play];
     });
 }
 
@@ -180,10 +207,10 @@ PLPlayerDelegate
 - (void)player:(nonnull PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
     NSLog(@"State: %@", status[state]);
     if (PLPlayerStatusReady == state) {
-        dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_barrier_async(queue, ^{
-            [self.player play];
-        });
+//        dispatch_queue_t queue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_barrier_async(queue, ^{
+//            [self.player play];
+//        });
     }
 }
 
@@ -192,7 +219,7 @@ PLPlayerDelegate
     __weak typeof(self) wself = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         __strong typeof(wself) strongSelf = wself;
-        [strongSelf reconnect];
+        [strongSelf.player play];
     });
 }
 

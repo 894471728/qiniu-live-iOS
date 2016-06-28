@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PLTabbarVC.h"
+#import <PLStreamingKit/PLStreamingEnv.h>
 
 @interface AppDelegate ()
 
@@ -18,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [PLStreamingEnv initEnv];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[[PLTabbarVC alloc] init]];
     self.window.rootViewController = nav;
     return YES;
