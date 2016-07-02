@@ -1,12 +1,11 @@
 # 七牛直播demo项目iOS版本（此版本只支持真机）
 
-##运行之前，请下载当前文件并解压复制到项目中，播放才能进行
-[点击下载](http://7xng1t.com1.z0.glb.clouddn.com/deps.zip)
+
 
 
 ##打包APP下载
 
-[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.0.7.html)
+[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.1.1.html)
 
 ##官方直播文档
 
@@ -47,4 +46,3 @@
 5. 其他的直播APP客户可以从直播业务服务器获取当前直播的RTMP或者HLS的地址进行观看，RTMP的实时性要优于HLS，另外七牛提供的[直播播放器](https://github.com/pili-engineering/PLPlayerKit)支持RTMP协议。
 6. 直播APP结束推流，同时发送停止推流信号给直播业务服务器，业务服务器记录下该直播过程的结束时间，可选性地让客户命名直播过程，方便未来回放。
 7. 直播APP本身也可以获取已直播完成的视频播放地址进行回看。
-
