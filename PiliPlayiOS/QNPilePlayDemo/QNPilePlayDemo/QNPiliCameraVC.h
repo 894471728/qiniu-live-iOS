@@ -18,6 +18,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UISlider *zoomSlider;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementedControl;
+@property (weak, nonatomic) IBOutlet UISwitch *isBeauty;
+@property (weak, nonatomic) IBOutlet UIStepper *redden;
+@property (weak, nonatomic) IBOutlet UIStepper *whiten;
+@property (weak, nonatomic) IBOutlet UIStepper *beauty;
+@property (weak, nonatomic) IBOutlet UIView *beautyView;
 
 @property (nonatomic, weak) IBOutlet UIView * rightView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton1;
@@ -28,6 +33,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView1;
 @property (weak, nonatomic) IBOutlet UISlider *zoomSlider1;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementedControl1;
+@property (weak, nonatomic) IBOutlet UISwitch *isBeauty1;
+@property (weak, nonatomic) IBOutlet UISlider *redden1;
+@property (weak, nonatomic) IBOutlet UISlider *whiten1;
+@property (weak, nonatomic) IBOutlet UISlider *beauty1;
+@property (weak, nonatomic) IBOutlet UIView *beautyView1;
+
 
 
 - (instancetype)initWithOrientation:(NSInteger)orientationNum

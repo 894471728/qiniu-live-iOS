@@ -65,8 +65,8 @@ PLStreamingSendingBufferDelegate
 @implementation QNPiliCameraVC
 
 - (instancetype)initWithOrientation:(NSInteger)orientationNum
-                    withStreamDic:(NSDictionary *)streamDic
-                        withTitle:(NSString *)streamName
+                      withStreamDic:(NSDictionary *)streamDic
+                          withTitle:(NSString *)streamName
 {
     self = [super init];
     
@@ -79,20 +79,14 @@ PLStreamingSendingBufferDelegate
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"视频录播";
     
-    
     if (!self.orientationNum) {
-
+        
         self.backButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
         self.toggleCameraButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
         self.torchButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
@@ -100,9 +94,13 @@ PLStreamingSendingBufferDelegate
         self.actionButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
         self.textView1.transform = CGAffineTransformMakeRotation(M_PI/2);
         self.segementedControl1.transform = CGAffineTransformMakeRotation(M_PI/2);
+        self.isBeauty1.transform=CGAffineTransformMakeRotation(M_PI/2);
+        [self.beauty1 setThumbImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
+        [self.whiten1 setThumbImage:[UIImage imageNamed:@"W"] forState:UIControlStateNormal];
+        [self.redden1 setThumbImage:[UIImage imageNamed:@"R"] forState:UIControlStateNormal];
         self.view = self.rightView;
     }
-  
+    
     
     // 预先设定几组编码质量，之后可以切换
     CGSize videoSize;
@@ -118,11 +116,11 @@ PLStreamingSendingBufferDelegate
                                           [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize expectedSourceVideoFrameRate:24 videoMaxKeyframeInterval:72 averageVideoBitRate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
                                           [[PLVideoStreamingConfiguration alloc] initWithVideoSize:videoSize expectedSourceVideoFrameRate:30 videoMaxKeyframeInterval:90 averageVideoBitRate:800 * 1000 videoProfileLevel:AVVideoProfileLevelH264Baseline31],
                                           ];
-    self.videoCaptureConfigurations = @[
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:15 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront],
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:24 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront],
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:30 sessionPreset:AVCaptureSessionPresetiFrame960x540 horizontallyMirrorFrontFacingCamera:YES horizontallyMirrorRearFacingCamera:NO cameraPosition:AVCaptureDevicePositionFront]
-                                        ];
+    AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
+    if (!self.orientationNum) {
+        orientation = AVCaptureVideoOrientationLandscapeRight;
+    }
+    self.videoCaptureConfigurations = @[[[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:15 sessionPreset:AVCaptureSessionPresetiFrame960x540 previewMirrorFrontFacing:YES previewMirrorRearFacing:NO streamMirrorFrontFacing:NO streamMirrorRearFacing:NO cameraPosition:AVCaptureDevicePositionFront videoOrientation:orientation],[[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:24 sessionPreset:AVCaptureSessionPresetiFrame960x540 previewMirrorFrontFacing:YES previewMirrorRearFacing:NO streamMirrorFrontFacing:NO streamMirrorRearFacing:NO cameraPosition:AVCaptureDevicePositionFront videoOrientation:orientation],[[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:30 sessionPreset:AVCaptureSessionPresetiFrame960x540 previewMirrorFrontFacing:YES previewMirrorRearFacing:NO streamMirrorFrontFacing:NO streamMirrorRearFacing:NO cameraPosition:AVCaptureDevicePositionFront videoOrientation:orientation]];
     self.sessionQueue = dispatch_queue_create("pili.queue.streaming", DISPATCH_QUEUE_SERIAL);
     
     // 网络状态监控
@@ -135,101 +133,68 @@ PLStreamingSendingBufferDelegate
                                                  name:AVAudioSessionInterruptionNotification
                                                object:[AVAudioSession sharedInstance]];
     
-
+    
 #warning 如果要运行 demo 这里应该填写服务端返回的某个流的 json 信息
-    NSDictionary * dicStream = [Help dictionaryWithJsonString:self.streamDic[@"stream"]];
-    PLStream *stream = [PLStream streamWithJSON:dicStream];
-    
-    void (^permissionBlock)(void) = ^{
-        dispatch_async(self.sessionQueue, ^{
-            PLVideoCaptureConfiguration *videoCaptureConfiguration = [self.videoCaptureConfigurations lastObject];
-            PLAudioCaptureConfiguration *audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
-            // 视频编码配置
-            PLVideoStreamingConfiguration *videoStreamingConfiguration = [self.videoStreamingConfigurations lastObject];
-            // 音频编码配置
-            PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
-            AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
-            if (!self.orientationNum) {
-                orientation = AVCaptureVideoOrientationLandscapeRight;
-            }
-            // 推流 session
-            self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream videoOrientation:orientation];
-            self.session.delegate = self;
-            self.session.bufferDelegate = self;
-            UIImage *waterMark = [UIImage imageNamed:@"qiniu"];
-            PLFilterHandler handler = [self.session addWaterMark:waterMark origin:CGPointMake(100, 300)];
-            self.filterHandlers = [@[handler] mutableCopy];
-            dispatch_async(dispatch_get_main_queue(), ^{
+    if (self.streamDic[@"stream"] == nil) {
+        [SVProgressHUD showAlterMessage:@"当前没有可用流，请退出重进"];
+    }else{
+        NSDictionary * dicStream = [Help dictionaryWithJsonString:self.streamDic[@"stream"]];
+        PLStream *stream = [PLStream streamWithJSON:dicStream];
+        
+        void (^permissionBlock)(void) = ^{
+            dispatch_async(self.sessionQueue, ^{
+                PLVideoCaptureConfiguration *videoCaptureConfiguration = [self.videoCaptureConfigurations lastObject];
+                PLAudioCaptureConfiguration *audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
+                // 视频编码配置
+                PLVideoStreamingConfiguration *videoStreamingConfiguration = [self.videoStreamingConfigurations lastObject];
+                // 音频编码配置
+                PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
+                AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
                 if (!self.orientationNum) {
-                    self.session.previewView.transform = CGAffineTransformMakeRotation(M_PI/2);
+                    orientation = AVCaptureVideoOrientationLandscapeRight;
                 }
-                self.session.previewView.frame =self.view.frame;
-                
-                self.view.backgroundColor = [UIColor clearColor];
-                [self.view addSubview:self.session.previewView];
-                if (self.orientationNum) {
-                    [self.view bringSubviewToFront:self.textView];
-                    [self.view bringSubviewToFront:self.zoomSlider];
-                    [self.view bringSubviewToFront:self.backButton];
-                    [self.view bringSubviewToFront:self.toggleCameraButton];
-                    [self.view bringSubviewToFront:self.torchButton];
-                    [self.view bringSubviewToFront:self.muteButton];
-                    [self.view bringSubviewToFront:self.actionButton];
-                    [self.view bringSubviewToFront:self.segementedControl];
+                // 推流 session
+                self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream videoOrientation:orientation];
+                self.session.delegate = self;
+                self.session.bufferDelegate = self;
+                [self.session setBeautifyModeOn:YES];
+                UIImage *waterMark = [UIImage imageNamed:@"qiniu"];
+                [self.session setWaterMarkWithImage:waterMark position:CGPointMake(100, 300)];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!self.orientationNum) {
+                        self.session.previewView.transform = CGAffineTransformMakeRotation(M_PI/2);
+                    }
+                    self.session.previewView.frame =self.view.frame;
                     
-                    self.zoomSlider.minimumValue = 1;
-                    self.zoomSlider.maximumValue = self.session.videoActiveFormat.videoMaxZoomFactor;
-                    
-                    NSString *log = [NSString stringWithFormat:@"Zoom Range: [1..%.0f]", self.session.videoActiveFormat.videoMaxZoomFactor];
-                    NSLog(@"%@", log);
-                    self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
-                }else{
-                    [self.view bringSubviewToFront:self.textView1];
-                    [self.view bringSubviewToFront:self.zoomSlider1];
-                    [self.view bringSubviewToFront:self.backButton1];
-                    [self.view bringSubviewToFront:self.toggleCameraButton1];
-                    [self.view bringSubviewToFront:self.torchButton1];
-                    [self.view bringSubviewToFront:self.muteButton1];
-                    [self.view bringSubviewToFront:self.actionButton1];
-                    [self.view bringSubviewToFront:self.segementedControl1];
-                    
-                    self.zoomSlider1.minimumValue = 1;
-                    self.zoomSlider1.maximumValue = self.session.videoActiveFormat.videoMaxZoomFactor;
-                    
-                    NSString *log = [NSString stringWithFormat:@"Zoom Range: [1..%.0f]", self.session.videoActiveFormat.videoMaxZoomFactor];
-                    NSLog(@"%@", log);
-                    self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-                }
-
-                
-                
-                
+                    self.view.backgroundColor = [UIColor clearColor];
+                    [self.view insertSubview:self.session.previewView atIndex:0];
+                });
             });
-        });
-    };
-    
-    void (^noAccessBlock)(void) = ^{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access", nil)
-                                                            message:NSLocalizedString(@"!", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                  otherButtonTitles:nil];
-        [alertView show];
-    };
-    
-    switch ([PLCameraStreamingSession cameraAuthorizationStatus]) {
-        case PLAuthorizationStatusAuthorized:
-            permissionBlock();
-            break;
-        case PLAuthorizationStatusNotDetermined: {
-            [PLCameraStreamingSession requestCameraAccessWithCompletionHandler:^(BOOL granted) {
-                granted ? permissionBlock() : noAccessBlock();
-            }];
+        };
+        
+        void (^noAccessBlock)(void) = ^{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access", nil)
+                                                                message:NSLocalizedString(@"!", nil)
+                                                               delegate:nil
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        };
+        
+        switch ([PLCameraStreamingSession cameraAuthorizationStatus]) {
+            case PLAuthorizationStatusAuthorized:
+                permissionBlock();
+                break;
+            case PLAuthorizationStatusNotDetermined: {
+                [PLCameraStreamingSession requestCameraAccessWithCompletionHandler:^(BOOL granted) {
+                    granted ? permissionBlock() : noAccessBlock();
+                }];
+            }
+                break;
+            default:
+                noAccessBlock();
+                break;
         }
-            break;
-        default:
-            noAccessBlock();
-            break;
     }
 }
 
@@ -289,7 +254,7 @@ PLStreamingSendingBufferDelegate
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
     }else
     {
-    self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
+        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
     }
 }
 
@@ -477,7 +442,7 @@ PLStreamingSendingBufferDelegate
         self.session.videoZoomFactor = self.zoomSlider.value;
     }else
     {
-    self.session.videoZoomFactor = self.zoomSlider1.value;
+        self.session.videoZoomFactor = self.zoomSlider1.value;
     }
 }
 
@@ -504,17 +469,80 @@ PLStreamingSendingBufferDelegate
         self.session.torchOn = !self.session.isTorchOn;
         
     });
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        jjjjjjjViewController * jjjvc = [[jjjjjjjViewController alloc] init];
-//        [self presentViewController:jjjvc animated:YES completion:^{
-//        }];
-//    });
 }
 
 - (IBAction)muteButtonPressed:(id)sender {
     dispatch_async(self.sessionQueue, ^{
         self.session.muted = !self.session.isMuted;
     });
+}
+
+-(IBAction)switchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    [self.session setBeautifyModeOn:isButtonOn];
+    if (!self.orientationNum) {
+        self.beautyView1.hidden = !isButtonOn;
+        self.beauty1.value = 50;
+        self.whiten1.value = 50;
+        self.redden1.value = 50;
+    }else
+    {
+        self.beautyView.hidden = !isButtonOn;
+        self.beauty.value = 50;
+        self.whiten.value = 50;
+        self.redden.value = 50;
+    }
+    
+    
+}
+
+-(IBAction)beautyAction:(id)sender
+{
+    UIStepper *beautyStepperButton = (UIStepper*)sender;
+    NSLog(@"beautyStepperButton.value/100 == %f",beautyStepperButton.value/100);
+    [self.session setBeautify:beautyStepperButton.value/100];
+    [SVProgressHUD showAlterMessage:[NSString stringWithFormat:@"%.2f",beautyStepperButton.value/100]];
+}
+
+-(IBAction)whiteAction:(id)sender
+{
+    UIStepper *whiteStepperButton = (UIStepper*)sender;
+    CGFloat withe = whiteStepperButton.value/100;
+    [self.session setWhiten:withe];
+    [SVProgressHUD showAlterMessage:[NSString stringWithFormat:@"%.2f",withe]];
+    
+}
+
+-(IBAction)reddenAction:(id)sender
+{
+    UIStepper *reddenStepperButton = (UIStepper*)sender;
+    NSLog(@"reddenStepperButton.value/100 == %f",reddenStepperButton.value/100);
+    [self.session setRedden:reddenStepperButton.value/100];
+    [SVProgressHUD showAlterMessage:[NSString stringWithFormat:@"%.2f",reddenStepperButton.value/100]];
+}
+
+-(IBAction)beauty1Action:(id)sender
+{
+    UISlider *beautyStepperButton = (UISlider*)sender;
+    NSLog(@"beautyStepperButton.value/100 == %f",beautyStepperButton.value/100);
+    [self.session setBeautify:beautyStepperButton.value/100];
+}
+
+-(IBAction)white1Action:(id)sender
+{
+    UISlider *whiteStepperButton = (UISlider*)sender;
+    CGFloat withe = whiteStepperButton.value/100;
+    [self.session setWhiten:withe];
+    
+}
+
+-(IBAction)redden1Action:(id)sender
+{
+    UISlider *reddenStepperButton = (UISlider*)sender;
+    NSLog(@"reddenStepperButton.value/100 == %f",reddenStepperButton.value/100);
+    [self.session setRedden:reddenStepperButton.value/100];
 }
 
 - (void)didReceiveMemoryWarning {

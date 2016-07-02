@@ -39,6 +39,9 @@
 		9385110D1BF1D503002F3BE9 /* headPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110C1BF1D503002F3BE9 /* headPic.png */; };
 		9385110F1BF1D7EB002F3BE9 /* btn_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385110E1BF1D7EB002F3BE9 /* btn_down@2x.png */; };
 		938511111BF1D80F002F3BE9 /* btn_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 938511101BF1D80F002F3BE9 /* btn_down@3x.png */; };
+		9388D3EE1D27B29700578D33 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = 9388D3ED1D27B29700578D33 /* b.png */; };
+		9388D3F11D27B40C00578D33 /* R.png in Resources */ = {isa = PBXBuildFile; fileRef = 9388D3EF1D27B40C00578D33 /* R.png */; };
+		9388D3F21D27B40C00578D33 /* W.png in Resources */ = {isa = PBXBuildFile; fileRef = 9388D3F01D27B40C00578D33 /* W.png */; };
 		93962E161BF082DD009DEDC1 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93962E061BF082DD009DEDC1 /* MJRefresh.bundle */; };
 		93962E171BF082DD009DEDC1 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E091BF082DD009DEDC1 /* MJRefreshBaseView.m */; };
 		93962E181BF082DD009DEDC1 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 93962E0B1BF082DD009DEDC1 /* MJRefreshConst.m */; };
@@ -148,6 +151,9 @@
 		9385110C1BF1D503002F3BE9 /* headPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headPic.png; sourceTree = "<group>"; };
 		9385110E1BF1D7EB002F3BE9 /* btn_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_down@2x.png"; sourceTree = "<group>"; };
 		938511101BF1D80F002F3BE9 /* btn_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_down@3x.png"; sourceTree = "<group>"; };
+		9388D3ED1D27B29700578D33 /* b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b.png; sourceTree = "<group>"; };
+		9388D3EF1D27B40C00578D33 /* R.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = R.png; sourceTree = "<group>"; };
+		9388D3F01D27B40C00578D33 /* W.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = W.png; sourceTree = "<group>"; };
 		93962E061BF082DD009DEDC1 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		93962E071BF082DD009DEDC1 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		93962E081BF082DD009DEDC1 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -416,6 +422,9 @@
 		93CEF4A01BDE1E8100750FE8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9388D3ED1D27B29700578D33 /* b.png */,
+				9388D3EF1D27B40C00578D33 /* R.png */,
+				9388D3F01D27B40C00578D33 /* W.png */,
 				937CC3941BE8B161009688B6 /* playLogo.png */,
 				937CC3961BE8B16A009688B6 /* stopLogo.png */,
 				93CE79351BEC4D5800C2F901 /* clock_Back@2x.png */,
@@ -666,10 +675,12 @@
 				93CEE0E31BE84DDD00958C42 /* QNPiliPlayVC.xib in Resources */,
 				93CF55111BDF1C5A004CA713 /* QNPiliPlayerVC.xib in Resources */,
 				93783B441D1BAC9400B27B65 /* qiniu.png in Resources */,
+				9388D3F11D27B40C00578D33 /* R.png in Resources */,
 				9310C1E11BF5F15400C1C8A4 /* pili.png in Resources */,
 				936D1FF11BE76B7A00EAE34E /* VCList.plist in Resources */,
 				938511061BF1CCAB002F3BE9 /* QNPiliChoseVC.xib in Resources */,
 				9310C1DE1BF5F15400C1C8A4 /* Icon-Small@2x.png in Resources */,
+				9388D3EE1D27B29700578D33 /* b.png in Resources */,
 				938511011BF199F3002F3BE9 /* headlogo.png in Resources */,
 				93CEE0E81BE851DC00958C42 /* QNPiliCameraVC.xib in Resources */,
 				93CEF4B01BDE1E8100750FE8 /* LaunchScreen.storyboard in Resources */,
@@ -679,6 +690,7 @@
 				936B62C71BF1F01400126AA1 /* userHead@3x.png in Resources */,
 				9385110B1BF1D468002F3BE9 /* QNPiliUserVC.xib in Resources */,
 				93CEF4AD1BDE1E8100750FE8 /* Assets.xcassets in Resources */,
+				9388D3F21D27B40C00578D33 /* W.png in Resources */,
 				937CC3951BE8B161009688B6 /* playLogo.png in Resources */,
 				9310C1E01BF5F15400C1C8A4 /* Icon@2x.png in Resources */,
 				938510FD1BF19753002F3BE9 /* QNPiliCell.xib in Resources */,
