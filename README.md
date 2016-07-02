@@ -1,11 +1,14 @@
 # 七牛直播demo项目iOS版本（此版本只支持真机）
 
 
-
-
 ##打包APP下载
 
 [点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.1.1.html)
+
+iOS点击下载之后，还无法直接运行，需要信任我们299账户的企业证书方可使用
+操作如下：
+点击设置—>通用—>设备管理
+进入管理，显示Shanghai Qiniu Information Technologies Co.Ltd 的企业级应用证书，点击信任，即可使用下载app
 
 ##官方直播文档
 
