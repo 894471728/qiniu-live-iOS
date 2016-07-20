@@ -14,30 +14,27 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - GPUImage (0.1.7)
-  - HappyDNS (0.3.5)
-  - pili-librtmp (1.0.3)
-  - PLCameraStreamingKit (1.8.0):
-    - GPUImage (= 0.1.7)
-    - PLCameraStreamingKit/precompiled (= 1.8.0)
-    - PLStreamingKit (~> 1.2.0)
-  - PLCameraStreamingKit/precompiled (1.8.0):
-    - GPUImage (= 0.1.7)
-    - PLStreamingKit (~> 1.2.0)
-  - PLPlayerKit (2.2.1):
+  - HappyDNS (0.3.9)
+  - pili-librtmp (1.0.3.1)
+  - PLCameraStreamingKit (1.8.1):
+    - PLCameraStreamingKit/precompiled (= 1.8.1)
+    - PLStreamingKit (= 1.2.5)
+  - PLCameraStreamingKit/precompiled (1.8.1):
+    - PLStreamingKit (= 1.2.5)
+  - PLPlayerKit (2.2.2):
     - HappyDNS
-    - pili-librtmp
-    - PLPlayerKit/precompiled (= 2.2.1)
-  - PLPlayerKit/precompiled (2.2.1):
+    - pili-librtmp (= 1.0.3.1)
+    - PLPlayerKit/precompiled (= 2.2.2)
+  - PLPlayerKit/precompiled (2.2.2):
     - HappyDNS
-    - pili-librtmp
-  - PLStreamingKit (1.2.4):
+    - pili-librtmp (= 1.0.3.1)
+  - PLStreamingKit (1.2.5):
     - HappyDNS
-    - pili-librtmp
-    - PLStreamingKit/precompiled (= 1.2.4)
-  - PLStreamingKit/precompiled (1.2.4):
+    - pili-librtmp (= 1.0.3.1)
+    - PLStreamingKit/precompiled (= 1.2.5)
+  - PLStreamingKit/precompiled (1.2.5):
     - HappyDNS
-    - pili-librtmp
+    - pili-librtmp (= 1.0.3.1)
 
 DEPENDENCIES:
   - AFNetworking
@@ -46,12 +43,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
-  pili-librtmp: 50faa17413c635cca5ceccb1a8f9f6acc6587a45
-  PLCameraStreamingKit: 03b4bce4218edeb18a0060d8849eb5d7b2af4a5d
-  PLPlayerKit: d0b902dccfbbc39519096b4f86e4e393c5f87bc3
-  PLStreamingKit: c8574decbacb981e36e5b95314c991a3b5d02125
+  HappyDNS: 17be04178df2dd09f0ee6ac33628589b7f9910e8
+  pili-librtmp: 0adf2516f4b5958b3cb079a4c3d4f6a4a9f49ce9
+  PLCameraStreamingKit: 12b672cbef9ba15bbb28ec543fb77f7d4cea66dc
+  PLPlayerKit: b5182ef942dce71678c9db07c2e1959df91e81cc
+  PLStreamingKit: 4b46739689d020b8e2eb755827ec86447c0291b7
 
 PODFILE CHECKSUM: 97e6955e948855f8a8fb8363eddc1a673695d5bf
 
