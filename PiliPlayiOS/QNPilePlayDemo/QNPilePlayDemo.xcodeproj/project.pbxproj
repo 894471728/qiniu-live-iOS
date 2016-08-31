@@ -18,6 +18,7 @@
 		9310C1DF1BF5F15400C1C8A4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D51BF5F15400C1C8A4 /* Icon.png */; };
 		9310C1E01BF5F15400C1C8A4 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D61BF5F15400C1C8A4 /* Icon@2x.png */; };
 		9310C1E11BF5F15400C1C8A4 /* pili.png in Resources */ = {isa = PBXBuildFile; fileRef = 9310C1D71BF5F15400C1C8A4 /* pili.png */; };
+		93305C631D76A04E0002FEC6 /* xxxxxx.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 93305C621D76A04E0002FEC6 /* xxxxxx.mp3 */; };
 		936B62C61BF1F01400126AA1 /* userHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C41BF1F01400126AA1 /* userHead@2x.png */; };
 		936B62C71BF1F01400126AA1 /* userHead@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936B62C51BF1F01400126AA1 /* userHead@3x.png */; };
 		936D1FEF1BE7692500EAE34E /* PLTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 936D1FEE1BE7692500EAE34E /* PLTabbarVC.m */; };
@@ -122,6 +123,7 @@
 		9310C1D51BF5F15400C1C8A4 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9310C1D61BF5F15400C1C8A4 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9310C1D71BF5F15400C1C8A4 /* pili.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pili.png; sourceTree = "<group>"; };
+		93305C621D76A04E0002FEC6 /* xxxxxx.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xxxxxx.mp3; sourceTree = "<group>"; };
 		933EA56F1BDE245700E256E5 /* QNPiliPlayDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QNPiliPlayDemo.pch; sourceTree = "<group>"; };
 		936B62C41BF1F01400126AA1 /* userHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userHead@2x.png"; sourceTree = "<group>"; };
 		936B62C51BF1F01400126AA1 /* userHead@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userHead@3x.png"; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 		93CEF4A01BDE1E8100750FE8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				93305C621D76A04E0002FEC6 /* xxxxxx.mp3 */,
 				9388D3ED1D27B29700578D33 /* b.png */,
 				9388D3EF1D27B40C00578D33 /* R.png */,
 				9388D3F01D27B40C00578D33 /* W.png */,
@@ -660,6 +663,7 @@
 				93CE81101C101DA1002DEE2A /* QNPiliPlayAddress.xib in Resources */,
 				93CE793A1BEC4D5800C2F901 /* clock_Back@3x.png in Resources */,
 				9310C1D81BF5F15400C1C8A4 /* Icon-120.png in Resources */,
+				93305C631D76A04E0002FEC6 /* xxxxxx.mp3 in Resources */,
 				936D1FF61BE76EB700EAE34E /* QNPiliComeBackVC.xib in Resources */,
 				93D2043C1BE99E1600733589 /* microphone.png in Resources */,
 				93CE79391BEC4D5800C2F901 /* clock_Back@2x.png in Resources */,
@@ -960,16 +964,14 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QNPilePlayDemo/QNPiliPlayDemo.pch";
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"HappyDNS\"",
-					"-l\"PLCameraStreamingKit\"",
 					"-l\"PLPlayerKit\"",
-					"-l\"PLStreamingKit\"",
 					"-l\"bz2\"",
 					"-l\"c++\"",
 					"-l\"iconv\"",
@@ -1012,7 +1014,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "33dab2c0-332d-4aef-b2d0-420990c73769";
 			};
 			name = Debug;
 		};
@@ -1030,16 +1032,14 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QNPilePlayDemo/QNPiliPlayDemo.pch";
 				INFOPLIST_FILE = QNPilePlayDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"HappyDNS\"",
-					"-l\"PLCameraStreamingKit\"",
 					"-l\"PLPlayerKit\"",
-					"-l\"PLStreamingKit\"",
 					"-l\"bz2\"",
 					"-l\"c++\"",
 					"-l\"iconv\"",
@@ -1082,7 +1082,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "33dab2c0-332d-4aef-b2d0-420990c73769";
 			};
 			name = Release;
 		};

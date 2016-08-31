@@ -8,7 +8,7 @@
 
 #import "QNPiliCameraVC.h"
 #import "Reachability.h"
-#import <PLCameraStreamingKit/PLCameraStreamingKit.h>
+#import <PLMediaStreamingKit/PLCameraStreamingKit.h>
 #import <asl.h>
 
 const char *stateNames[] = {
@@ -43,7 +43,7 @@ const char *networkStatus[] = {
 
 @interface QNPiliCameraVC ()<
 PLCameraStreamingSessionDelegate,
-PLStreamingSendingBufferDelegate
+PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 >
 @property (nonatomic, assign) NSInteger orientationNum;
 @property (nonatomic, strong) NSDictionary *streamDic;
@@ -58,6 +58,8 @@ PLStreamingSendingBufferDelegate
 @property (nonatomic, strong) NSDate    *keyTime;
 @property (nonatomic, strong) NSMutableArray *filterHandlers;
 @property (nonatomic, assign) BOOL isStart;
+@property (nonatomic, strong) PLAudioPlayer * plAudioPlayer;
+@property (nonatomic, assign) BOOL audioEffectOn;
 
 
 @end
@@ -84,22 +86,7 @@ PLStreamingSendingBufferDelegate
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"视频录播";
-    
-    if (!self.orientationNum) {
-        
-        self.backButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        self.toggleCameraButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        self.torchButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        self.muteButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        self.actionButton1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        self.textView1.transform = CGAffineTransformMakeRotation(M_PI/2);
-        self.segementedControl1.transform = CGAffineTransformMakeRotation(M_PI/2);
-        self.isBeauty1.transform=CGAffineTransformMakeRotation(M_PI/2);
-        [self.beauty1 setThumbImage:[UIImage imageNamed:@"b"] forState:UIControlStateNormal];
-        [self.whiten1 setThumbImage:[UIImage imageNamed:@"W"] forState:UIControlStateNormal];
-        [self.redden1 setThumbImage:[UIImage imageNamed:@"R"] forState:UIControlStateNormal];
-        self.view = self.rightView;
-    }
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     
     // 预先设定几组编码质量，之后可以切换
@@ -158,12 +145,12 @@ PLStreamingSendingBufferDelegate
                 self.session.delegate = self;
                 self.session.bufferDelegate = self;
                 [self.session setBeautifyModeOn:YES];
+                NSString * path = [[NSBundle mainBundle] pathForResource: @"xxxxxx" ofType: @"mp3"];
+                self.plAudioPlayer = [self.session audioPlayerWithFilePath:path];
+                self.plAudioPlayer.delegate = self;
                 UIImage *waterMark = [UIImage imageNamed:@"qiniu"];
-                [self.session setWaterMarkWithImage:waterMark position:CGPointMake(100, 300)];
+                [self.session setWaterMarkWithImage:waterMark position:CGPointMake(0, 0)];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (!self.orientationNum) {
-                        self.session.previewView.transform = CGAffineTransformMakeRotation(M_PI/2);
-                    }
                     self.session.previewView.frame =self.view.frame;
                     
                     self.view.backgroundColor = [UIColor clearColor];
@@ -198,6 +185,10 @@ PLStreamingSendingBufferDelegate
     }
 }
 
+
+
+
+
 - (void)startStream
 {
     NSDictionary * dic = @{@"sessionId":[UserInfoClass sheardUserInfo].sessionID,
@@ -210,6 +201,34 @@ PLStreamingSendingBufferDelegate
         self.startStreamDic = responseObject;
     } andFailure:^(NSURLSessionDataTask *task, NSError *error) {
     } andISstatus:NO];
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+        if (self.orientationNum) {
+            return UIInterfaceOrientationPortrait;
+    
+        }else{
+            return UIInterfaceOrientationLandscapeRight;
+        }
+    
+    
+}
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+
+{
+        if (self.orientationNum) {
+            return UIInterfaceOrientationMaskPortrait;
+        }else
+        {
+            return UIInterfaceOrientationMaskLandscapeRight;
+        }
 }
 
 - (IBAction)backAction:(id)sender
@@ -230,6 +249,7 @@ PLStreamingSendingBufferDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
     dispatch_sync(self.sessionQueue, ^{
+        [self.plAudioPlayer stopAndRelease];
         [self.session destroy];
     });
     self.session = nil;
@@ -250,12 +270,23 @@ PLStreamingSendingBufferDelegate
     
     NSString *log = [NSString stringWithFormat:@"Networkt Status: %s", networkStatus[status]];
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-    }
+}
+
+#pragma mark - <PLAudioPlayerDelegate>
+- (void)audioPlayer:(PLAudioPlayer *)audioPlayer audioDidPlayedRateChanged:(double)audioDidPlayedRate
+{
+    NSLog(@"PlayedRate : %f",audioDidPlayedRate);
+}
+
+- (void)audioPlayer:(PLAudioPlayer *)audioPlayer findFileError:(PLAudioPlayerFileError)fileError
+{
+    NSLog(@"PLAudioPlayerFileError == %u", fileError);
+}
+
+- (BOOL)didAudioFilePlayingFinishedAndShouldAudioPlayerPlayAgain:(PLAudioPlayer *)audioPlayer
+{
+    return  YES;
 }
 
 #pragma mark - <PLStreamingSendingBufferDelegate>
@@ -263,12 +294,7 @@ PLStreamingSendingBufferDelegate
 - (void)streamingSessionSendingBufferDidFull:(id)session {
     NSString *log = @"Buffer is full";
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-    }
 }
 
 - (void)handleInterruption:(NSNotification *)notification {
@@ -289,12 +315,7 @@ PLStreamingSendingBufferDelegate
 - (void)streamingSession:(id)session sendingBufferDidDropItems:(NSArray *)items {
     NSString *log = @"Frame dropped";
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-    }
 }
 
 #pragma mark - <PLCameraStreamingSessionDelegate>
@@ -302,7 +323,6 @@ PLStreamingSendingBufferDelegate
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session streamStateDidChange:(PLStreamState)state {
     NSString *log = [NSString stringWithFormat:@"Stream State: %s", stateNames[state]];
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
         // 除 PLStreamStateError 外的其余状态会回调在这个方法
         // 这个回调会确保在主线程，所以可以直接对 UI 做操作
@@ -311,17 +331,6 @@ PLStreamingSendingBufferDelegate
         } else if (PLStreamStateDisconnected == state) {
             [self.actionButton setTitle:NSLocalizedString(@"Start", nil) forState:UIControlStateNormal];
         }
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-        // 除 PLStreamStateError 外的其余状态会回调在这个方法
-        // 这个回调会确保在主线程，所以可以直接对 UI 做操作
-        if (PLStreamStateConnected == state) {
-            [self.actionButton1 setTitle:NSLocalizedString(@"Stop", nil) forState:UIControlStateNormal];
-        } else if (PLStreamStateDisconnected == state) {
-            [self.actionButton1 setTitle:NSLocalizedString(@"Start", nil) forState:UIControlStateNormal];
-        }
-    }
     
     
 }
@@ -329,14 +338,8 @@ PLStreamingSendingBufferDelegate
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error {
     NSString *log = [NSString stringWithFormat:@"Stream State: Error. %@", error];
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
         [self.actionButton setTitle:NSLocalizedString(@"Reconnecting", nil) forState:UIControlStateNormal];
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-        [self.actionButton1 setTitle:NSLocalizedString(@"Reconnecting", nil) forState:UIControlStateNormal];
-    }
     // PLStreamStateError 都会回调在这个方法
     // 尝试重连，注意这里需要你自己来处理重连尝试的次数以及重连的时间间隔
     [self.actionButton setTitle:NSLocalizedString(@"Reconnecting", nil) forState:UIControlStateNormal];
@@ -346,12 +349,7 @@ PLStreamingSendingBufferDelegate
 - (void)cameraStreamingSession:(PLCameraStreamingSession *)session streamStatusDidUpdate:(PLStreamStatus *)status {
     NSString *log = [NSString stringWithFormat:@"%@", status];
     NSLog(@"%@", log);
-    if (self.orientationNum) {
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
-    }else
-    {
-        self.textView1.text = [NSString stringWithFormat:@"%@\%@", self.textView1.text, log];
-    }
     
 #if kReloadConfigurationEnable
     NSDate *now = [NSDate date];
@@ -411,14 +409,28 @@ PLStreamingSendingBufferDelegate
     });
 }
 
+//- (void)startSession {
+//    self.keyTime = nil;
+//    self.actionButton.enabled = NO;
+//    dispatch_async(self.sessionQueue, ^{
+//        [self.session startWithCompleted:^(BOOL success) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.actionButton.enabled = YES;
+//            });
+//        }];
+//    });
+//}
+
 - (void)startSession {
     self.keyTime = nil;
     self.actionButton.enabled = NO;
     dispatch_async(self.sessionQueue, ^{
-        [self.session startWithCompleted:^(BOOL success) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.actionButton.enabled = YES;
-            });
+        [self.session startWithFeedback:^(PLStreamStartStateFeedback feedback) {
+            if (feedback == PLStreamStartStateSuccess) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.actionButton.enabled = YES;
+                });
+            }
         }];
     });
 }
@@ -427,23 +439,13 @@ PLStreamingSendingBufferDelegate
 
 - (IBAction)segmentedControlValueDidChange:(id)sender {
     PLVideoCaptureConfiguration *videoCaptureConfiguration;
-    if (self.orientationNum) {
         videoCaptureConfiguration = self.videoCaptureConfigurations[self.segementedControl.selectedSegmentIndex];
-    }else
-    {
-        videoCaptureConfiguration = self.videoCaptureConfigurations[self.segementedControl1.selectedSegmentIndex];;
-    }
     
     [self.session reloadVideoStreamingConfiguration:self.session.videoStreamingConfiguration videoCaptureConfiguration:videoCaptureConfiguration];
 }
 
 - (IBAction)zoomSliderValueDidChange:(id)sender {
-    if (self.orientationNum) {
         self.session.videoZoomFactor = self.zoomSlider.value;
-    }else
-    {
-        self.session.videoZoomFactor = self.zoomSlider1.value;
-    }
 }
 
 - (IBAction)actionButtonPressed:(id)sender {
@@ -482,18 +484,10 @@ PLStreamingSendingBufferDelegate
     UISwitch *switchButton = (UISwitch*)sender;
     BOOL isButtonOn = [switchButton isOn];
     [self.session setBeautifyModeOn:isButtonOn];
-    if (!self.orientationNum) {
-        self.beautyView1.hidden = !isButtonOn;
-        self.beauty1.value = 50;
-        self.whiten1.value = 50;
-        self.redden1.value = 50;
-    }else
-    {
         self.beautyView.hidden = !isButtonOn;
         self.beauty.value = 50;
         self.whiten.value = 50;
         self.redden.value = 50;
-    }
     
     
 }
@@ -543,6 +537,28 @@ PLStreamingSendingBufferDelegate
     UISlider *reddenStepperButton = (UISlider*)sender;
     NSLog(@"reddenStepperButton.value/100 == %f",reddenStepperButton.value/100);
     [self.session setRedden:reddenStepperButton.value/100];
+}
+
+- (IBAction)playbackButtonPressed:(id)sender
+{
+    self.session.playback = !self.session.playback;
+}
+
+- (IBAction)audioEffectButtonPressed:(id)sender
+{
+//    NSArray<PLAudioEffectConfiguration *> *effects;
+    
+    if (!self.audioEffectOn) {
+//
+//                PLAudioEffectConfiguration *configuration = [PLAudioEffectModeConfiguration reverbHeightLevelModeConfiguration];
+//                effects = @[configuration];
+        [self.plAudioPlayer play];
+    } else {
+//        effects = @[];
+        [self.plAudioPlayer pause];
+    }
+    self.audioEffectOn = !self.audioEffectOn;
+//    self.session.audioEffectConfigurations = effects;
 }
 
 - (void)didReceiveMemoryWarning {

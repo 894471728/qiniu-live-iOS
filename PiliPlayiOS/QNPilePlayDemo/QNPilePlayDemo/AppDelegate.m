@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PLTabbarVC.h"
-#import <PLStreamingKit/PLStreamingEnv.h>
+#import <PLMediaStreamingKit/PLStreamingEnv.h>
 
 @interface AppDelegate ()
 

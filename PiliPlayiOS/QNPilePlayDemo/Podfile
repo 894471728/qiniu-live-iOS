@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 target "QNPilePlayDemo" do
 pod 'AFNetworking'
-pod 'PLCameraStreamingKit'
+pod 'PLMediaStreamingKit'
 pod 'PLPlayerKit'
 end

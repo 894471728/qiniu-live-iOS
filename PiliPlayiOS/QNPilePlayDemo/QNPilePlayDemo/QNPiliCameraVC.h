@@ -23,21 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIStepper *whiten;
 @property (weak, nonatomic) IBOutlet UIStepper *beauty;
 @property (weak, nonatomic) IBOutlet UIView *beautyView;
+@property (weak, nonatomic) IBOutlet UIButton *playBack;
+@property (weak, nonatomic) IBOutlet UIButton *mixAudioBtn;
 
-@property (nonatomic, weak) IBOutlet UIView * rightView;
-@property (weak, nonatomic) IBOutlet UIButton *backButton1;
-@property (weak, nonatomic) IBOutlet UIButton *actionButton1;
-@property (weak, nonatomic) IBOutlet UIButton *toggleCameraButton1;
-@property (weak, nonatomic) IBOutlet UIButton *torchButton1;
-@property (weak, nonatomic) IBOutlet UIButton *muteButton1;
-@property (weak, nonatomic) IBOutlet UITextView *textView1;
-@property (weak, nonatomic) IBOutlet UISlider *zoomSlider1;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segementedControl1;
-@property (weak, nonatomic) IBOutlet UISwitch *isBeauty1;
-@property (weak, nonatomic) IBOutlet UISlider *redden1;
-@property (weak, nonatomic) IBOutlet UISlider *whiten1;
-@property (weak, nonatomic) IBOutlet UISlider *beauty1;
-@property (weak, nonatomic) IBOutlet UIView *beautyView1;
+
 
 
 

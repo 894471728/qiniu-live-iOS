@@ -28,11 +28,10 @@ PLPlayerDelegate
 
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSDictionary * dic;
-@property (nonatomic, strong) UIButton * backBtn;
+
 @property (nonatomic, strong) PLPlayer  *player;
 @property (nonatomic, weak) dispatch_queue_t  playerQueue;
 @property (nonatomic, strong) UIView  *playerView;
-@property (nonatomic, strong) UIButton * forceConnectBtn;
 
 @end
 
@@ -63,7 +62,7 @@ PLPlayerDelegate
     
     PLPlayerOption *option = [PLPlayerOption defaultOption];
     [option setOptionValue:@10 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
-    
+    [self addBtnAction];
     // 初始化 PLPlayer
     self.player = [PLPlayer playerWithURL:self.url option:option];
     
@@ -72,7 +71,7 @@ PLPlayerDelegate
     self.player.delegateQueue = dispatch_get_main_queue();
     self.player.backgroundPlayEnable = enableBackgroundPlay;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startPlayer) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [self.view addSubview:self.player.playerView];
+    [self.view insertSubview:self.player.playerView atIndex:0];
     self.playerView = self.player.playerView;
 //    self.playerView.frame = self.view.frame;
     if ([[NSString stringWithFormat:@"%@",self.dic[@"orientation"]] isEqualToString:@"1"]) {
@@ -83,30 +82,15 @@ PLPlayerDelegate
     }
     
     [self.player play];
-    [self addBtn];
 }
 
-- (void)addBtn
+- (void)addBtnAction
 {
-    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 50, 50)];
-    self.backBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    [self.backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.backBtn.layer.cornerRadius = 20;
-    [self.backBtn setBackgroundColor:[UIColor redColor]];
-    [self.backBtn setTitle:@"返回" forState:UIControlStateNormal];
     [self.backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.backBtn];
-    
-    self.forceConnectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, 100, 50)];
-    self.forceConnectBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    [self.forceConnectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.forceConnectBtn.layer.cornerRadius = 20;
-    [self.forceConnectBtn setBackgroundColor:[UIColor redColor]];
-    [self.forceConnectBtn setTitle:@"强制重连" forState:UIControlStateNormal];
-    [self.forceConnectBtn addTarget:self action:@selector(button:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.forceConnectBtn];
-    
+    [self.screenCaptureBtn addTarget:self action:@selector(screenCaptureAaction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.refreshBtn addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventTouchUpInside];
 }
+
 
 - (void)startPlayer {
     [self.player play];
@@ -121,7 +105,7 @@ PLPlayerDelegate
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     if ([[NSString stringWithFormat:@"%@",self.dic[@"orientation"]] isEqualToString:@"1"]) {
-        return UIDeviceOrientationPortrait;
+        return UIInterfaceOrientationPortrait;
 
     }else{
         return UIInterfaceOrientationLandscapeRight;
@@ -130,7 +114,7 @@ PLPlayerDelegate
 
 }
 
--(NSUInteger)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
 
 {
     if ([[NSString stringWithFormat:@"%@",self.dic[@"orientation"]] isEqualToString:@"1"]) {
@@ -159,8 +143,33 @@ PLPlayerDelegate
 }
 
 
-- (void)button:(id)sender {
+- (void)refreshAction:(id)sender {
     [self reconnect];
+}
+
+- (void)screenCaptureAaction:(id)sender
+{
+    [self.player getScreenShotWithCompletionHandler:^(UIImage * _Nullable image) {
+        if (image) {
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    // Was there an error?
+    if (error != NULL)
+    {
+        // Show error message...
+        [SVProgressHUD showAlterMessage:@"保存出错，请重新截取"];
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+            [SVProgressHUD showAlterMessage:@"截取成功，请到系统相册中去查看"];
+    }
 }
 
 - (void)resetPlayerView {

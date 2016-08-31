@@ -9,7 +9,10 @@
 #import "BaseVC.h"
 
 @interface QNPiliPlayVC : BaseVC
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
 - (instancetype)initWithDic:(NSDictionary *)dic;
+@property (weak, nonatomic) IBOutlet UIButton *screenCaptureBtn;
+@property (weak, nonatomic) IBOutlet UIButton *refreshBtn;
 
 @end

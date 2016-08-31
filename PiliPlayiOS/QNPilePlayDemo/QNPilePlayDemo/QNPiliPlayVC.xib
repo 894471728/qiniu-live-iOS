@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QNPiliPlayVC">
             <connections>
+                <outlet property="backBtn" destination="XXi-x8-FNF" id="5bf-u9-5eX"/>
+                <outlet property="refreshBtn" destination="oPo-jk-XKw" id="CVZ-Z0-NZN"/>
+                <outlet property="screenCaptureBtn" destination="YCp-hY-muS" id="MeM-w5-xCC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +17,46 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPo-jk-XKw">
+                    <rect key="frame" x="541" y="560" width="49" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="1x9-9L-w2s"/>
+                        <constraint firstAttribute="width" constant="49" id="gwL-Ac-l7S"/>
+                    </constraints>
+                    <state key="normal" title="refresh">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCp-hY-muS">
+                    <rect key="frame" x="285" y="560" width="30" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="截屏">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXi-x8-FNF">
+                    <rect key="frame" x="20" y="30" width="34" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="34" id="bRi-6Y-UkU"/>
+                        <constraint firstAttribute="height" constant="30" id="eQ7-RN-Qtj"/>
+                    </constraints>
+                    <state key="normal" title="back">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="oPo-jk-XKw" secondAttribute="bottom" constant="10" id="0ff-3l-AR8"/>
+                <constraint firstAttribute="bottom" secondItem="YCp-hY-muS" secondAttribute="bottom" constant="10" id="9Nb-28-XNG"/>
+                <constraint firstItem="XXi-x8-FNF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Z8W-8x-jyR"/>
+                <constraint firstAttribute="trailing" secondItem="oPo-jk-XKw" secondAttribute="trailing" constant="10" id="eDx-g3-tO3"/>
+                <constraint firstItem="XXi-x8-FNF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="mCR-l9-asV"/>
+                <constraint firstItem="YCp-hY-muS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qtI-3E-1Kc"/>
+            </constraints>
         </view>
     </objects>
 </document>
