@@ -3,7 +3,7 @@
 
 ##打包APP下载
 
-[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.1.1.html)
+[点击下载](https://dn-devtools.qbox.me/QNPilePlayDemo-v1.1.2.html)
 
 iOS点击下载之后，还无法直接运行，需要信任我们299账户的企业证书方可使用
 操作如下：
