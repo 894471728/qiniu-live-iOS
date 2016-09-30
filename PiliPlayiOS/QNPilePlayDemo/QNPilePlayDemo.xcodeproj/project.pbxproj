@@ -619,6 +619,7 @@
 					93CEF49C1BDE1E8100750FE8 = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = GDFHW66V92;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -956,7 +957,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GDFHW66V92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1014,7 +1016,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33dab2c0-332d-4aef-b2d0-420990c73769";
+				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";
+				PROVISIONING_PROFILE_SPECIFIER = "QNPLDemoForSellProfile(299)";
 			};
 			name = Debug;
 		};
@@ -1024,7 +1027,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GDFHW66V92;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1082,7 +1086,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.QNPiliDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33dab2c0-332d-4aef-b2d0-420990c73769";
+				PROVISIONING_PROFILE = "c8b2e171-43a8-431a-b64f-74f419bb694c";
+				PROVISIONING_PROFILE_SPECIFIER = "QNPLDemoForSellProfile(299)";
 			};
 			name = Release;
 		};

@@ -221,6 +221,7 @@ PLPlayerDelegate
 //            [self.player play];
 //        });
     }
+    self.videosize.text = [NSString stringWithFormat:@"videosize = %d*%d\n videoFPS = %d\n renderFPS = %d\n bitrate = %.2f\n downSpeed = %.2f",self.player.width,self.player.height,self.player.videoFPS,self.player.renderFPS,self.player.bitrate,self.player.downSpeed];
 }
 
 - (void)player:(nonnull PLPlayer *)player stoppedWithError:(nullable NSError *)error {

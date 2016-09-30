@@ -14,5 +14,6 @@
 - (instancetype)initWithDic:(NSDictionary *)dic;
 @property (weak, nonatomic) IBOutlet UIButton *screenCaptureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *refreshBtn;
+@property (weak, nonatomic) IBOutlet UITextView * videosize;
 
 @end

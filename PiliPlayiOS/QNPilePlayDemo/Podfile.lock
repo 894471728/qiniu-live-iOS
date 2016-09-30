@@ -15,29 +15,35 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - HappyDNS (0.3.10)
-  - pili-librtmp (1.0.4)
-  - PLMediaStreamingKit (2.1.1):
+  - pili-ffmpeg (3.1.0)
+  - pili-librtmp (1.0.5)
+  - PLMediaStreamingKit (2.1.2):
     - HappyDNS (~> 0.3.0)
-    - pili-librtmp (= 1.0.4)
-    - PLMediaStreamingKit/Common (= 2.1.1)
-    - PLMediaStreamingKit/PLCameraStreamingKit (= 2.1.1)
-    - PLMediaStreamingKit/PLStreamingKit (= 2.1.1)
-  - PLMediaStreamingKit/Common (2.1.1):
+    - pili-librtmp (= 1.0.5)
+    - PLMediaStreamingKit/Common (= 2.1.2)
+    - PLMediaStreamingKit/PLCameraStreamingKit (= 2.1.2)
+    - PLMediaStreamingKit/PLMediaStreamingKit (= 2.1.2)
+    - PLMediaStreamingKit/PLRTCStreamingKit (= 2.1.2)
+    - PLMediaStreamingKit/PLStreamingKit (= 2.1.2)
+  - PLMediaStreamingKit/Common (2.1.2):
     - HappyDNS (~> 0.3.0)
-    - pili-librtmp (= 1.0.4)
-  - PLMediaStreamingKit/PLCameraStreamingKit (2.1.1):
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLCameraStreamingKit (2.1.2):
     - HappyDNS (~> 0.3.0)
-    - pili-librtmp (= 1.0.4)
-  - PLMediaStreamingKit/PLStreamingKit (2.1.1):
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLMediaStreamingKit (2.1.2):
     - HappyDNS (~> 0.3.0)
-    - pili-librtmp (= 1.0.4)
-  - PLPlayerKit (2.2.4):
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLRTCStreamingKit (2.1.2):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLStreamingKit (2.1.2):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLPlayerKit (2.3.0):
     - HappyDNS (~> 0.3.10)
-    - pili-librtmp (= 1.0.4)
-    - PLPlayerKit/precompiled (= 2.2.4)
-  - PLPlayerKit/precompiled (2.2.4):
-    - HappyDNS (~> 0.3.10)
-    - pili-librtmp (= 1.0.4)
+    - pili-ffmpeg (~> 3.1.0)
+    - pili-librtmp (~> 1.0.5)
 
 DEPENDENCIES:
   - AFNetworking
@@ -47,10 +53,11 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
-  pili-librtmp: bc768bc3971edad732fd5e66f0ee991fa1a0a257
-  PLMediaStreamingKit: 64d4416ad8a39b3e63515cea52face395d048614
-  PLPlayerKit: 30e419fa90e84df34922e6dd5d5833d7e4348bf4
+  pili-ffmpeg: b76de7e6b730723497d79508be8e8efdcba31a69
+  pili-librtmp: 65a6e10f7c314bd1f407ba24bd074c57cba79d0c
+  PLMediaStreamingKit: f4d541793d1514ee45740d9690b9945dd1bffa88
+  PLPlayerKit: 1473253ee2d7863d8a78dbb3b965161245c51ad5
 
-PODFILE CHECKSUM: 4c646a72c74625c439f129375620843e108aee04
+PODFILE CHECKSUM: bf3a9af1ea650ca2991e858bc0c257fcae431369
 
 COCOAPODS: 1.0.1

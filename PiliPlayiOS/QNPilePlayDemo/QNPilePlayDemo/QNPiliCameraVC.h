@@ -11,6 +11,7 @@
 @interface QNPiliCameraVC : BaseVC
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *screenCaptureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UIButton *toggleCameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *torchButton;

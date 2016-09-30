@@ -8,7 +8,7 @@
 
 #import "QNPiliCameraVC.h"
 #import "Reachability.h"
-#import <PLMediaStreamingKit/PLCameraStreamingKit.h>
+#import <PLMediaStreamingKit/PLMediaStreamingKit.h>
 #import <asl.h>
 
 const char *stateNames[] = {
@@ -42,7 +42,7 @@ const char *networkStatus[] = {
 #define KDeviceHeight [UIScreen mainScreen].bounds.size.height      //屏幕高
 
 @interface QNPiliCameraVC ()<
-PLCameraStreamingSessionDelegate,
+PLMediaStreamingSessionDelegate,
 PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 >
 @property (nonatomic, assign) NSInteger orientationNum;
@@ -50,7 +50,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 @property (nonatomic, strong) NSDictionary * startStreamDic;
 @property (nonatomic, strong) NSString * streamName;
 @property (nonatomic, strong) NSString * quality;
-@property (nonatomic, strong) PLCameraStreamingSession  *session;
+@property (nonatomic, strong) PLMediaStreamingSession  *session;
 @property (nonatomic, strong) Reachability *internetReachability;
 @property (nonatomic, strong) dispatch_queue_t sessionQueue;
 @property (nonatomic, strong) NSArray<PLVideoCaptureConfiguration *>   *videoCaptureConfigurations;
@@ -141,9 +141,8 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
                     orientation = AVCaptureVideoOrientationLandscapeRight;
                 }
                 // 推流 session
-                self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream videoOrientation:orientation];
+                self.session = [[PLMediaStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:stream];
                 self.session.delegate = self;
-                self.session.bufferDelegate = self;
                 [self.session setBeautifyModeOn:YES];
                 NSString * path = [[NSBundle mainBundle] pathForResource: @"xxxxxx" ofType: @"mp3"];
                 self.plAudioPlayer = [self.session audioPlayerWithFilePath:path];
@@ -237,7 +236,8 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
         NSDictionary * dic = @{@"sessionId":[UserInfoClass sheardUserInfo].sessionID,@"accessToken":[Help transformAccessToken:[UserInfoClass sheardUserInfo].sessionID],@"publishId":self.startStreamDic[@"publishId"]};
         [HTTPRequestPost hTTPRequest_PostpostBody:dic andUrl:@"stop/publish" andSucceed:^(NSURLSessionDataTask *task, id responseObject) {
             [SVProgressHUD showAlterMessage:responseObject[@"desc"]];
-            [self.session stop];
+//            [self.session stop];
+            [self.session stopStreaming];
         } andFailure:^(NSURLSessionDataTask *task, NSError *error) {
         } andISstatus:NO];
     }
@@ -318,9 +318,9 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
 }
 
-#pragma mark - <PLCameraStreamingSessionDelegate>
+#pragma mark - <PLMediaStreamingSessionDelegate>
 
-- (void)cameraStreamingSession:(PLCameraStreamingSession *)session streamStateDidChange:(PLStreamState)state {
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session streamStateDidChange:(PLStreamState)state {
     NSString *log = [NSString stringWithFormat:@"Stream State: %s", stateNames[state]];
     NSLog(@"%@", log);
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
@@ -335,7 +335,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
     
 }
 
-- (void)cameraStreamingSession:(PLCameraStreamingSession *)session didDisconnectWithError:(NSError *)error {
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session didDisconnectWithError:(NSError *)error {
     NSString *log = [NSString stringWithFormat:@"Stream State: Error. %@", error];
     NSLog(@"%@", log);
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
@@ -346,7 +346,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
     [self startSession];
 }
 
-- (void)cameraStreamingSession:(PLCameraStreamingSession *)session streamStatusDidUpdate:(PLStreamStatus *)status {
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session streamStatusDidUpdate:(PLStreamStatus *)status {
     NSString *log = [NSString stringWithFormat:@"%@", status];
     NSLog(@"%@", log);
         self.textView.text = [NSString stringWithFormat:@"%@\%@", self.textView.text, log];
@@ -384,8 +384,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
         return;
     }
     PLVideoStreamingConfiguration *newStreamingConfiguration = self.videoStreamingConfigurations[idx + 1];
-    PLVideoCaptureConfiguration *newCaptureConfiguration = self.videoCaptureConfigurations[idx + 1];
-    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration videoCaptureConfiguration:newCaptureConfiguration];
+    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration];
 }
 
 - (void)lowerQuality {
@@ -396,8 +395,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
         return;
     }
     PLVideoStreamingConfiguration *newStreamingConfiguration = self.videoStreamingConfigurations[idx - 1];
-    PLVideoCaptureConfiguration *newCaptureConfiguration = self.videoCaptureConfigurations[idx - 1];
-    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration videoCaptureConfiguration:newCaptureConfiguration];
+    [self.session reloadVideoStreamingConfiguration:newStreamingConfiguration];
 }
 
 #pragma mark - Operation
@@ -405,7 +403,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 - (void)stopSession {
     dispatch_async(self.sessionQueue, ^{
         self.keyTime = nil;
-        [self.session stop];
+        [self.session stopStreaming];
     });
 }
 
@@ -421,11 +419,37 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 //    });
 //}
 
+- (IBAction)screenCaptureAction:(id)sender
+{
+    [self.session getScreenshotWithCompletionHandler:^(UIImage * _Nullable image) {
+        if (image) {
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+
+    }];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    // Was there an error?
+    if (error != NULL)
+    {
+        // Show error message...
+        [SVProgressHUD showAlterMessage:@"保存出错，请重新截取"];
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+        [SVProgressHUD showAlterMessage:@"截取成功，请到系统相册中去查看"];
+    }
+}
+
 - (void)startSession {
     self.keyTime = nil;
     self.actionButton.enabled = NO;
     dispatch_async(self.sessionQueue, ^{
-        [self.session startWithFeedback:^(PLStreamStartStateFeedback feedback) {
+        [self.session startStreamingWithFeedback:^(PLStreamStartStateFeedback feedback) {
             if (feedback == PLStreamStartStateSuccess) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.actionButton.enabled = YES;
@@ -440,8 +464,7 @@ PLStreamingSendingBufferDelegate,PLAudioPlayerDelegate
 - (IBAction)segmentedControlValueDidChange:(id)sender {
     PLVideoCaptureConfiguration *videoCaptureConfiguration;
         videoCaptureConfiguration = self.videoCaptureConfigurations[self.segementedControl.selectedSegmentIndex];
-    
-    [self.session reloadVideoStreamingConfiguration:self.session.videoStreamingConfiguration videoCaptureConfiguration:videoCaptureConfiguration];
+    [self.session reloadVideoStreamingConfiguration:self.session.videoStreamingConfiguration];
 }
 
 - (IBAction)zoomSliderValueDidChange:(id)sender {

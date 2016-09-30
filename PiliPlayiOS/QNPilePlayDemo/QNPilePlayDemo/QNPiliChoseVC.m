@@ -22,7 +22,6 @@
     [super viewDidLoad];
     self.title = @"配置";
     // Do any additional setup after loading the view from its nib.
-    [self getStream];
     self.choseOrientationBtn.layer.cornerRadius = 10;
     
     self.starBtn.layer.cornerRadius = 10;
@@ -32,18 +31,28 @@
 {
     NSDictionary * dic = @{@"sessionId":[UserInfoClass sheardUserInfo].sessionID,@"accessToken":[Help transformAccessToken:[UserInfoClass sheardUserInfo].sessionID]};
     [HTTPRequestPost hTTPRequest_PostpostBody:dic andUrl:@"get/stream" andSucceed:^(NSURLSessionDataTask *task, id responseObject) {
-        self.dic = responseObject;
+        if ([responseObject[@"code"] integerValue] == 1000) {
+            self.dic = responseObject;
+            [self checkStream];
+        }
     } andFailure:^(NSURLSessionDataTask *task, NSError *error) {
     } andISstatus:NO];
 }
 
 - (void)checkStream
 {
-    NSDictionary * dic = @{@"sessionId":[UserInfoClass sheardUserInfo].sessionID,@"accessToken":[Help transformAccessToken:[UserInfoClass sheardUserInfo].sessionID],@"streamId":self.dic[@"streamId"]};
-    [HTTPRequestPost hTTPRequest_PostpostBody:dic andUrl:@"status/stream" andSucceed:^(NSURLSessionDataTask *task, id responseObject) {
-        [SVProgressHUD showAlterMessage:responseObject[@"desc"]];
-    } andFailure:^(NSURLSessionDataTask *task, NSError *error) {
-    } andISstatus:NO];
+    if ([self.dic objectForKey:@"streamId"] ) {  // objectForKdy will return nil if a key doesn't exists.
+        // contains key
+        NSDictionary * dic = @{@"sessionId":[UserInfoClass sheardUserInfo].sessionID,@"accessToken":[Help transformAccessToken:[UserInfoClass sheardUserInfo].sessionID],@"streamId":self.dic[@"streamId"]};
+        [HTTPRequestPost hTTPRequest_PostpostBody:dic andUrl:@"status/stream" andSucceed:^(NSURLSessionDataTask *task, id responseObject) {
+            [SVProgressHUD showAlterMessage:responseObject[@"desc"]];
+        } andFailure:^(NSURLSessionDataTask *task, NSError *error) {
+        } andISstatus:NO];
+    }
+    
+    QNPiliCameraVC * cameraVC = [[QNPiliCameraVC alloc] initWithOrientation:self.orientationNum withStreamDic:self.dic withTitle:self.vedioTitleTf.text];
+    //    [self.navigationController pushViewController:cameraVC animated:YES];
+    [self presentViewController:cameraVC animated:YES completion:Nil];
 }
 
 - (IBAction)choseOrientationAction:(id)sender
@@ -70,10 +79,8 @@
 
 - (IBAction)startAction:(id)sender
 {
-    [self checkStream];
-    QNPiliCameraVC * cameraVC = [[QNPiliCameraVC alloc] initWithOrientation:self.orientationNum withStreamDic:self.dic withTitle:self.vedioTitleTf.text];
-//    [self.navigationController pushViewController:cameraVC animated:YES];
-    [self presentViewController:cameraVC animated:YES completion:Nil];
+//    [self checkStream];
+    [self getStream];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
